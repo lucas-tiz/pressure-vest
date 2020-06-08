@@ -1,56 +1,48 @@
 #!/usr/bin/env python3
 import sys
-import numpy as np
-import datetime
-import time
 
 import PyQt5
 from PyQt5.QtWidgets import *
 
 import mainwindow
-# import adc
-# import pwm
-
-
-# https://stackoverflow.com/questions/22340230/python-pyqt-how-run-while-loop-without-locking-main-dialog-window
 
 class VestController(QMainWindow, mainwindow.Ui_MainWindow):
-	def __init__(self, chamber_info):
+	def __init__(self):
 		super(self.__class__, self).__init__()
 		self.setupUi(self)
 
-		# attributes
-		self.t_app_start = time.time()
-		self.chamber_info = chamber_info
-		self.n_chambers = len(chamber_info)
-		self.on = False
+		self.on = False;
 
-		self.sense_freq = 2 # (Hz) TODO: set value, make external
-		self.control_freq = 1 # (Hz) TODO: set value, make external
-		self.display_freq = 1 # (Hz) TODO: set value, make external
-		self.log_freq = 1 # (Hz) TODO: set value, make external
-
-		# objects
-		# self.adc = Adc(bus, device, last_channel) #TODO: set adc props
-		# self.pwm = Pwm()
-		
+		chamber_names = ['aur', 'aul', 'alr', 'all'] # names of chambers
 		self.chambers = dict() # dict of chambers
-		for name in chamber_info:
-			self.chambers[name] = PressureChamber(self, name) # instantiate PressureChamber for each chamber
+		for name in chamber_names:
+			self.chambers[name] = PressureChamber(form, name) # instantiate PressureChamber for each chamber
+
+
+
+        conn_sense, conn_control = mlt.Pipe(duplex=True) # set up multiprocessing pipe
+	
+		adc = Adc()
+		self.pwm = Pwm()
+
+		sense_process = mlt.Process(target=self.senseProcess, args=(adc, conn_sense))
+
+		control_process = mlt.Process(target=)
+
+
 
 		# signals & slots
-		self.pushButton_on.clicked.connect(lambda: self.updateSystemState())
-
-		# # start in idle state
-		# self.idleSystem()
+		self.pushButton_on.clicked.connect(lambda: self.runSystem())
 
 
-	def updateSystemState(self):
+
+	def runSystem(self):
 		if self.on is False:
+			self.sense_process.start()
+			self.control_process.start()
 			self.on = True
 			self.pushButton_on.setText('Off')
 			print('running...')
-			# self.runSystem()
 		else: # self.on is True
 			self.sense_process.stop()
 			self.control_process.stop()
@@ -59,91 +51,60 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 			print('stopped!')
 
 
-	def runSystem(self):
-		max_samples = self.log_freq*60*60 # (1 hour) TODO: allocate more rows if getting close to max
-		self.data = np.zeros((max_samples,self.n_chambers+1), dtype=float) # allocate data array 
-		n_sample = 0 # initialize number of data samples recorded
 
-		t_sensor = 0.0
-		t_control = 0.0
-		t_display = 0.0
-		datetime_start = datetime.datetime.now() # get start date & time
-
-		t_now = time.time
-		t_start = t_now() # get start time
-		while self.on:
-			t = t_now() - t_start
-			if t >= (t_sensor + 1/self.sense_freq):
-				pressures = self.sensorUpdate()
-				self.data[n_sample,0] = t # record time
-				self.data[n_sample,1:] = pressures # record pressures
-				t_sensor = t # update sensor time
-				n_sample = n_sample + 1 # update number of samples
-
-			t = t_now() - t_start
-			if t >= (t_control + 1/self.control_freq):
-				self.controlUpdate()
-				t_control = t # update control time
-
-			t = t_now() - t_start
-			if t >= (t_display+ 1/self.display_freq):
-				self.displayUpdate()
-				t_display = t # update display time
-
-		#TODO: set duty cycles to zero
-		#TODO: export data
-		print('loop ended')
-
-		self.idleSystem() # switch to idle mode
+	def senseProcess(self):
+		# t = 0
+		# while True:
+		# update time
+		# if time to update (based on sense_frequency):
+		# 	pressures = adc.read()
+		# 	pipe pressures to control process
+		# 	save pressures
 
 
-	def idleSystem(self):
-		# loop continuously and do notihing
-		while not self.on:
-			continue
-			time.sleep(0.1)
-			print(time.time()-self.t_app_start, 'idling...')
-
-		self.runSystem() # switch to run mode
+	def controlProcess(self):
+		# t = 0
+		# while True:
+		# 	update time
+		# 	check for data in pipe, and update all chamber measurements if there is data
 		
 
-
-	def sensorUpdate(self):
-		# self.pressures = self.adc.readAll() # read pressures
-		pressures = [1,2,3,4] #DEBUG
-
-		for name, chamber in self.chambers.items(): # update chamber pressures
-			chamber.updateMeasurement(pressures[self.chamber_info[name]['adc']])
-
-		return pressures
+		# 	if time to update (based on control_frequency):
+		# 		for all chambers:
+		# 			chamber.updatePressure(pressure, t)
 
 
-	def controlUpdate(self):		
-		dutys = [0]*self.n_chambers 
-		for name, chamber in self.chambers.items(): # calculate duty cycles
-			dutys[self.chamber_info[name]['pwm']] = chamber.calcControl()
 
-		# self.pwm.updateAll(dutys) # update duty cycles
+	def updateMeasurements(pressures):
 
-		print(name,dutys) #DEBUG
+		adc_map = {	'aur':0,
+					'aul':1,
+					'alr':2
+					'all':3}
+
+		for name, chamber in self.chambers.items():
+			self.chamber.updateMeasurement(pressures[adc_map[name]])
 
 
-	def displayUpdate(self):
-		for name, chamber in self.chambers.items(): # update chamber pressures
-			chamber.updateMeasurementDisplay()
+	def updateControls():
+
+		#TODO: pwm_map
+
+		for chamber in self.chambers.values():
+			duty = self.chamber.calcControl()
+
 
 
 
 class PressureChamber:
 	# Manage interaction between GUI signals & pressure control
-	def __init__(self, form, chamber_name):
+	def __init__(self, form, chamber_name, control_freq):
 		# GUI objects
 		self.form = form
 		self.frame = getattr(form, 'frame_' + chamber_name)
 		self.checkbox = getattr(form, 'checkBox_' + chamber_name)
 		self.spinbox = getattr(form, 'doubleSpinBox_' + chamber_name)
 		self.slider = getattr(form, 'horizontalSlider_' + chamber_name)
-		self.label = getattr(form, 'label_' + chamber_name)
 
 		# GUI signals & slots
 		self.spinbox.valueChanged.connect(
@@ -152,69 +113,55 @@ class PressureChamber:
 			lambda: self.updateSetpoint(2)) # slider update
 		self.checkbox.stateChanged.connect(self.enableChamber) # checkbox update
 
-			# self.control = dict()
-			# self.control['freq'] = control_freq
+		#TODO: instantiate pressure controller
+		self.control = dict()
+		self.control['freq'] = control_freq
 		self.pres_meas = 0 # initialize pressure measurement
 		self.pres_set = 0 # initialize pressure setpoint
 		self.enabled = False
 
-			# self.controller = PressureController(control_freq)
-
-		self.duty = 0 #DEBUG
+		self.controller = PressureController(control_freq)
 
 
 	def enableChamber(self):
 		# Enable or disable pressure chamber
 		if self.checkbox.isChecked() == 1:
 			self.frame.setEnabled(True) # enable chamber GUI
-			self.enabled = True # enable controller
+			self.controller.enabled = True # enable controller
 		else:
 			self.frame.setEnabled(False) # disable chamber GUI
-			self.enabled = False # disable controller
+			self.controller.enabled = False # disable controller
 
 
 	def updateSetpoint(self, n):
 		# Update chamber pressure setpoint
 
 		# update GUI
-		self.spinbox.blockSignals(True)
-		self.slider.blockSignals(True)
-
 		spin_max = self.spinbox.maximum()
 		slider_max = self.slider.maximum()
 		if n == 1: # spin box updated
-			pres_set = self.spinbox.value()
-			self.slider.setValue(round(pres_set*slider_max/spin_max,1))
+			spin_val = self.spinbox.value()
+			self.slider.setValue(round(spin_val*slider_max/spin_max,1))
 		if n == 2: # slider updated
 			slider_val = self.slider.value()
-			pres_set  = round(slider_val*spin_max/slider_max,1)
-			self.spinbox.setValue(pres_set)
+			self.spinbox.setValue(round(slider_val*spin_max/slider_max,1))
 
-		self.spinbox.blockSignals(False)
-		self.slider.blockSignals(False)
-
-		# update setpoint
-		self.pres_set = pres_set
-		print(self.pres_set) #DEBUG
+		# update controller
+		#TODO: get setpoint from GUI
+		self.controller.pres_set = pres_set
 
 
 	def updateMeasurement(self, pressure): 
-		self.pres_meas = pressure
+		self.controller.pres_meas = pressure
+		#TODO: if time to update display (display_frequency): update display
 
 
 	def calcControl(self):
-		if self.enabled:
-			self.duty = self.duty + 1 #DEBUG
-			duty = self.duty #DEBUG
+		if self.form.on and self.enabled
 			#TODO: control law
-		else:
+		else
 			duty = 0
 		return duty
-
-
-	def updateMeasurementDisplay(self):
-		self.label.setText(str(round(self.pres_meas,1)))
-
 
 
 #TODO:
@@ -240,15 +187,9 @@ class PressureChamber:
 
 
 def main():
-
-	chamber_info = {'aur':{'adc':0, 'pwm':0}, #TODO: put this in main
-					'aul':{'adc':1, 'pwm':1},
-					'alr':{'adc':2, 'pwm':2},
-					'all':{'adc':3, 'pwm':3} }
-
 	# instantiate GUI
 	app = QApplication(sys.argv)
-	form = VestController(chamber_info)
+	form = VestController()
 	form.show()
 
 	# # instantiate a PressureChamber for each chamber

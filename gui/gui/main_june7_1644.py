@@ -12,8 +12,6 @@ import mainwindow
 # import pwm
 
 
-# https://stackoverflow.com/questions/22340230/python-pyqt-how-run-while-loop-without-locking-main-dialog-window
-
 class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 	def __init__(self, chamber_info):
 		super(self.__class__, self).__init__()
@@ -25,32 +23,28 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		self.n_chambers = len(chamber_info)
 		self.on = False
 
-		self.sense_freq = 2 # (Hz) TODO: set value, make external
-		self.control_freq = 1 # (Hz) TODO: set value, make external
-		self.display_freq = 1 # (Hz) TODO: set value, make external
-		self.log_freq = 1 # (Hz) TODO: set value, make external
+		self.log_freq = 1 # (Hz) TODO: make external
 
 		# objects
 		# self.adc = Adc(bus, device, last_channel) #TODO: set adc props
 		# self.pwm = Pwm()
-		
 		self.chambers = dict() # dict of chambers
 		for name in chamber_info:
-			self.chambers[name] = PressureChamber(self, name) # instantiate PressureChamber for each chamber
+			self.chambers[name] = PressureChamber(form, name) # instantiate PressureChamber for each chamber
 
 		# signals & slots
 		self.pushButton_on.clicked.connect(lambda: self.updateSystemState())
 
-		# # start in idle state
-		# self.idleSystem()
+		# start in idle state
+		self.idleSystem()
 
 
 	def updateSystemState(self):
 		if self.on is False:
 			self.on = True
+			self.runSystem()
 			self.pushButton_on.setText('Off')
 			print('running...')
-			# self.runSystem()
 		else: # self.on is True
 			self.sense_process.stop()
 			self.control_process.stop()
@@ -61,7 +55,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 	def runSystem(self):
 		max_samples = self.log_freq*60*60 # (1 hour) TODO: allocate more rows if getting close to max
-		self.data = np.zeros((max_samples,self.n_chambers+1), dtype=float) # allocate data array 
+		self.data = np.zeros(max_samples,17) # allocate data array 
 		n_sample = 0 # initialize number of data samples recorded
 
 		t_sensor = 0.0
@@ -73,20 +67,18 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		t_start = t_now() # get start time
 		while self.on:
 			t = t_now() - t_start
-			if t >= (t_sensor + 1/self.sense_freq):
-				pressures = self.sensorUpdate()
-				self.data[n_sample,0] = t # record time
-				self.data[n_sample,1:] = pressures # record pressures
+			if t >= (t_sensor + 1/sense_frequency):
+				self.sensorUpdate()
 				t_sensor = t # update sensor time
 				n_sample = n_sample + 1 # update number of samples
 
 			t = t_now() - t_start
-			if t >= (t_control + 1/self.control_freq):
+			if t >= (t_control + 1/control_frequency):
 				self.controlUpdate()
 				t_control = t # update control time
 
 			t = t_now() - t_start
-			if t >= (t_display+ 1/self.display_freq):
+			if t >= (t_display+ 1/display_frequency):
 				self.displayUpdate()
 				t_display = t # update display time
 
@@ -110,12 +102,14 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 	def sensorUpdate(self):
 		# self.pressures = self.adc.readAll() # read pressures
-		pressures = [1,2,3,4] #DEBUG
+		self.pressures = [1,2,3,4] #DEBUG
+
 
 		for name, chamber in self.chambers.items(): # update chamber pressures
-			chamber.updateMeasurement(pressures[self.chamber_info[name]['adc']])
+			chamber.updateMeasurement(self.pressures[self.chamber_info[name]['adc']])
 
-		return pressures
+		self.data[n_sample,0] = t # record time
+		self.data[n_sample,1:] = pressures # record pressures
 
 
 	def controlUpdate(self):		
@@ -125,7 +119,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 		# self.pwm.updateAll(dutys) # update duty cycles
 
-		print(name,dutys) #DEBUG
+		print(name,duty) #DEBUG
 
 
 	def displayUpdate(self):
@@ -143,7 +137,6 @@ class PressureChamber:
 		self.checkbox = getattr(form, 'checkBox_' + chamber_name)
 		self.spinbox = getattr(form, 'doubleSpinBox_' + chamber_name)
 		self.slider = getattr(form, 'horizontalSlider_' + chamber_name)
-		self.label = getattr(form, 'label_' + chamber_name)
 
 		# GUI signals & slots
 		self.spinbox.valueChanged.connect(
@@ -167,31 +160,24 @@ class PressureChamber:
 		# Enable or disable pressure chamber
 		if self.checkbox.isChecked() == 1:
 			self.frame.setEnabled(True) # enable chamber GUI
-			self.enabled = True # enable controller
+			self.controller.enabled = True # enable controller
 		else:
 			self.frame.setEnabled(False) # disable chamber GUI
-			self.enabled = False # disable controller
+			self.controller.enabled = False # disable controller
 
 
 	def updateSetpoint(self, n):
 		# Update chamber pressure setpoint
 
 		# update GUI
-		self.spinbox.blockSignals(True)
-		self.slider.blockSignals(True)
-
 		spin_max = self.spinbox.maximum()
 		slider_max = self.slider.maximum()
 		if n == 1: # spin box updated
 			pres_set = self.spinbox.value()
 			self.slider.setValue(round(pres_set*slider_max/spin_max,1))
 		if n == 2: # slider updated
-			slider_val = self.slider.value()
-			pres_set  = round(slider_val*spin_max/slider_max,1)
-			self.spinbox.setValue(pres_set)
-
-		self.spinbox.blockSignals(False)
-		self.slider.blockSignals(False)
+			pres_set = self.slider.value()
+			self.spinbox.setValue(round(pres_set*spin_max/slider_max,1))
 
 		# update setpoint
 		self.pres_set = pres_set
