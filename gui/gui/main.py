@@ -6,6 +6,7 @@ import time
 
 import PyQt5
 from PyQt5.QtWidgets import *
+from PyQt5 import QtCore
 
 import mainwindow
 # import adc
@@ -15,6 +16,9 @@ import mainwindow
 # https://stackoverflow.com/questions/22340230/python-pyqt-how-run-while-loop-without-locking-main-dialog-window
 
 class VestController(QMainWindow, mainwindow.Ui_MainWindow):
+
+	signal_off = QtCore.pyqtSignal()
+
 	def __init__(self, chamber_info):
 		super(self.__class__, self).__init__()
 		self.setupUi(self)
@@ -25,9 +29,9 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		self.n_chambers = len(chamber_info)
 		self.on = False
 
-		self.sense_freq = 2 # (Hz) TODO: set value, make external
-		self.control_freq = 1 # (Hz) TODO: set value, make external
-		self.display_freq = 1 # (Hz) TODO: set value, make external
+		# self.sense_freq = 2 # (Hz) TODO: set value, make external
+		# self.control_freq = 1 # (Hz) TODO: set value, make external
+		# self.display_freq = 1 # (Hz) TODO: set value, make external
 		self.log_freq = 1 # (Hz) TODO: set value, make external
 
 		# objects
@@ -41,8 +45,22 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		# signals & slots
 		self.pushButton_on.clicked.connect(lambda: self.updateSystemState())
 
-		# # start in idle state
-		# self.idleSystem()
+
+		# set up control stuff
+		self.pressures = [0]*self.n_chambers
+		
+		sense_freq = 0.5 # (Hz) TODO: set value, make external
+		self.log_freq = 1 # (Hz) TODO: set value, make external
+		control_freq = 1 # (Hz) TODO: set value, make external
+		# self.display_freq = 1 # (Hz) TODO: set value, make external
+		self.controller = Controller(sense_freq, self.log_freq, control_freq)
+
+		# self.signal_off = QtCore.pyqtSignal()
+		self.signal_off.connect(self.controller.stop)
+
+
+		self.controller.signal_sense.connect(self.sensorUpdate)
+		self.controller.signal_log.connect(self.logUpdate)
 
 
 	def updateSystemState(self):
@@ -50,72 +68,44 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 			self.on = True
 			self.pushButton_on.setText('Off')
 			print('running...')
-			# self.runSystem()
+			self.initLog() # initialize data log
+			self.controller.start() # start controller
 		else: # self.on is True
-			self.sense_process.stop()
-			self.control_process.stop()
 			self.on = False
 			self.pushButton_on.setText('On')
 			print('stopped!')
-
-
-	def runSystem(self):
-		max_samples = self.log_freq*60*60 # (1 hour) TODO: allocate more rows if getting close to max
-		self.data = np.zeros((max_samples,self.n_chambers+1), dtype=float) # allocate data array 
-		n_sample = 0 # initialize number of data samples recorded
-
-		t_sensor = 0.0
-		t_control = 0.0
-		t_display = 0.0
-		datetime_start = datetime.datetime.now() # get start date & time
-
-		t_now = time.time
-		t_start = t_now() # get start time
-		while self.on:
-			t = t_now() - t_start
-			if t >= (t_sensor + 1/self.sense_freq):
-				pressures = self.sensorUpdate()
-				self.data[n_sample,0] = t # record time
-				self.data[n_sample,1:] = pressures # record pressures
-				t_sensor = t # update sensor time
-				n_sample = n_sample + 1 # update number of samples
-
-			t = t_now() - t_start
-			if t >= (t_control + 1/self.control_freq):
-				self.controlUpdate()
-				t_control = t # update control time
-
-			t = t_now() - t_start
-			if t >= (t_display+ 1/self.display_freq):
-				self.displayUpdate()
-				t_display = t # update display time
-
-		#TODO: set duty cycles to zero
-		#TODO: export data
-		print('loop ended')
-
-		self.idleSystem() # switch to idle mode
-
-
-	def idleSystem(self):
-		# loop continuously and do notihing
-		while not self.on:
-			continue
-			time.sleep(0.1)
-			print(time.time()-self.t_app_start, 'idling...')
-
-		self.runSystem() # switch to run mode
+			self.signal_off.emit() # emit controller off signal #TODO: rename signal
+			print(self.data[0:10,:])
+			# self.saveLog() TODO
 		
 
+	def initLog(self):
+		# Initialize data array for logging pressure data
+		max_samples = self.log_freq*60*60 # (1 hour) TODO: allocate more rows if getting close to max
+		self.data = np.zeros((max_samples,self.n_chambers+1), dtype=float) # allocate data array 
+		self.n_sample = 0 # initialize number of data samples recorded
+		self.datetime_start = datetime.datetime.now() # get start date & time
 
-	def sensorUpdate(self):
+
+	def sensorUpdate(self,t):
+		# Read/convert pressures from ADC & update pressure of each chamber object
+
 		# self.pressures = self.adc.readAll() # read pressures
 		pressures = [1,2,3,4] #DEBUG
 
 		for name, chamber in self.chambers.items(): # update chamber pressures
-			chamber.updateMeasurement(pressures[self.chamber_info[name]['adc']])
+			idx_adc = self.chamber_info[name]['adc'] # ADC index of pressure chamber
+			chamber.updateMeasurement(pressures[idx_adc]) # update chamber measurement
+			self.pressures[idx_adc] = pressures[idx_adc] # update pressures in class (in order of ADC)
 
-		return pressures
+		print(t,self.pressures)
+
+
+	def logUpdate(self,t):
+		# Log data into array
+		self.data[self.n_sample,0] = t # record time
+		self.data[self.n_sample,1:] = self.pressures # record pressures
+		self.n_sample = self.n_sample + 1 # update number of samples
 
 
 	def controlUpdate(self):		
@@ -131,6 +121,90 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 	def displayUpdate(self):
 		for name, chamber in self.chambers.items(): # update chamber pressures
 			chamber.updateMeasurementDisplay()
+
+
+	# def saveLog(self):
+	# 	#TODO: get header names from chamber dict
+
+
+class Controller(QtCore.QThread):
+
+	signal_sense = QtCore.pyqtSignal(float)
+	signal_log = QtCore.pyqtSignal(float)
+	signal_control = QtCore.pyqtSignal(float)
+
+	def __init__(self, sense_freq, log_freq, control_freq):
+		QtCore.QThread.__init__(self)
+
+		self.on = False
+
+		self.sense_freq = sense_freq
+		self.log_freq = log_freq
+		self.control_freq = control_freq
+
+
+	def stop(self):
+		self.on = False
+
+
+	def run(self):
+		self.on = True
+
+		t_sensor = 0.0
+		t_log = 0.0
+		t_control = 0.0
+		t_display = 0.0
+		# datetime_start = datetime.datetime.now() # get start date & time
+
+		# t_now = time.time
+		# t_start = t_now() # get start time
+
+		# while self.on:
+		# 	t = t_now() - t_start
+		# 	if t >= (t_sensor + 1/self.sense_freq):
+		# 		pressures = self.sensorUpdate()
+		# 		self.data[n_sample,0] = t # record time
+		# 		self.data[n_sample,1:] = pressures # record pressures
+		# 		t_sensor = t # update sensor time
+		# 		n_sample = n_sample + 1 # update number of samples
+
+		# 	t = t_now() - t_start
+		# 	if t >= (t_control + 1/self.control_freq):
+		# 		self.controlUpdate()
+		# 		t_control = t # update control time
+
+		# 	t = t_now() - t_start
+		# 	if t >= (t_display+ 1/self.display_freq):
+		# 		self.displayUpdate()
+		# 		t_display = t # update display time
+
+		# #TODO: set duty cycles to zero
+		# #TODO: export data
+		# print('loop ended')
+
+
+		t_now = time.time
+		t_start = t_now() # get start time
+
+		while self.on:
+			t = t_now() - t_start
+			if t >= (t_sensor + 1/self.sense_freq):
+				self.signal_sense.emit(t) # emit sensor update signal
+				t_sensor = t # update sensor time
+
+			t = t_now() - t_start
+			if t >= (t_log + 1/self.log_freq):
+				self.signal_log.emit(t) # emit sensor update signal
+				t_log = t # update sensor time
+
+			t = t_now() - t_start
+			if t >= (t_control + 1/self.control_freq):
+				self.signal_control.emit(t)	
+				t_control = t # update control time
+
+
+			time.sleep(0.1) #DEBUG
+
 
 
 
@@ -217,28 +291,6 @@ class PressureChamber:
 
 
 
-#TODO:
-# class PressureController:
-# 	def __init__(self, control_freq):
-# 		self.control_freq = control_freq
-# 		self.pres_meas = 0 # initialize pressure measurement
-# 		self.pres_set = 0 # initialize pressure setpoint
-# 		self.enabled = False
-
-# 	def updateControl();
-# 		if self.enabled is True:
-# 			#TODO: control law
-# 		else
-# 			duty = 0
-# 		return duty
-
-# 	def enableControl():
-
-
-
-
-
-
 def main():
 
 	chamber_info = {'aur':{'adc':0, 'pwm':0}, #TODO: put this in main
@@ -263,6 +315,69 @@ def main():
 if __name__ == "__main__":
 	main()
 
+
+
+
+
+
+
+	# def runSystem(self):
+	# 	max_samples = self.log_freq*60*60 # (1 hour) TODO: allocate more rows if getting close to max
+	# 	self.data = np.zeros((max_samples,self.n_chambers+1), dtype=float) # allocate data array 
+	# 	n_sample = 0 # initialize number of data samples recorded
+
+	# 	t_sensor = 0.0
+	# 	t_control = 0.0
+	# 	t_display = 0.0
+	# 	datetime_start = datetime.datetime.now() # get start date & time
+
+	# 	t_now = time.time
+	# 	t_start = t_now() # get start time
+
+	# 	while self.on:
+	# 		t = t_now() - t_start
+	# 		if t >= (t_sensor + 1/self.sense_freq):
+	# 			pressures = self.sensorUpdate()
+	# 			self.data[n_sample,0] = t # record time
+	# 			self.data[n_sample,1:] = pressures # record pressures
+	# 			t_sensor = t # update sensor time
+	# 			n_sample = n_sample + 1 # update number of samples
+
+	# 		t = t_now() - t_start
+	# 		if t >= (t_control + 1/self.control_freq):
+	# 			self.controlUpdate()
+	# 			t_control = t # update control time
+
+	# 		t = t_now() - t_start
+	# 		if t >= (t_display+ 1/self.display_freq):
+	# 			self.displayUpdate()
+	# 			t_display = t # update display time
+
+	# 	#TODO: set duty cycles to zero
+	# 	#TODO: export data
+	# 	print('loop ended')
+
+	# 		# self.idleSystem() # switch to idle mode
+
+
+
+
+	#TODO:
+# class PressureController:
+# 	def __init__(self, control_freq):
+# 		self.control_freq = control_freq
+# 		self.pres_meas = 0 # initialize pressure measurement
+# 		self.pres_set = 0 # initialize pressure setpoint
+# 		self.enabled = False
+
+# 	def updateControl();
+# 		if self.enabled is True:
+# 			#TODO: control law
+# 		else
+# 			duty = 0
+# 		return duty
+
+# 	def enableControl():
 
 
 
