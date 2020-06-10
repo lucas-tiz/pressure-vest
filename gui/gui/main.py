@@ -12,6 +12,11 @@ import mainwindow
 # import adc
 # import pwm
 
+"""
+TODO:
+- set duties to zero before app exit
+"""
+
 
 # https://stackoverflow.com/questions/22340230/python-pyqt-how-run-while-loop-without-locking-main-dialog-window
 
@@ -23,59 +28,56 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		super(self.__class__, self).__init__()
 		self.setupUi(self)
 
-		# attributes
+		# main attributes
+		self.on = False
 		self.t_app_start = time.time()
+
+		# system signals & slots
+		self.pushButton_on.clicked.connect(lambda: self.updateSystemState())
+
+		# instantiate ADC and PWM modules
+		# self.adc = Adc(bus, device, last_channel) #TODO: set adc props
+		# self.pwm = Pwm() #TODO: set up PWM
+		
+		# instantiate chambers
 		self.chamber_info = chamber_info
 		self.n_chambers = len(chamber_info)
-		self.on = False
+		self.pressures = [0]*self.n_chambers # chamber pressures
 
-		# self.sense_freq = 2 # (Hz) TODO: set value, make external
-		# self.control_freq = 1 # (Hz) TODO: set value, make external
-		# self.display_freq = 1 # (Hz) TODO: set value, make external
-		self.log_freq = 1 # (Hz) TODO: set value, make external
-
-		# objects
-		# self.adc = Adc(bus, device, last_channel) #TODO: set adc props
-		# self.pwm = Pwm()
-		
 		self.chambers = dict() # dict of chambers
 		for name in chamber_info:
 			self.chambers[name] = PressureChamber(self, name) # instantiate PressureChamber for each chamber
 
-		# signals & slots
-		self.pushButton_on.clicked.connect(lambda: self.updateSystemState())
-
-
-		# set up control stuff
-		self.pressures = [0]*self.n_chambers
-		
-		sense_freq = 0.5 # (Hz) TODO: set value, make external
+		# set up controller		
+		self.sense_freq = 5 # (Hz) TODO: set value, make external
 		self.log_freq = 1 # (Hz) TODO: set value, make external
-		control_freq = 1 # (Hz) TODO: set value, make external
-		# self.display_freq = 1 # (Hz) TODO: set value, make external
-		self.controller = Controller(sense_freq, self.log_freq, control_freq)
+		self.control_freq = 1 # (Hz) TODO: set value, make external
+		self.display_freq = 1 # (Hz) TODO: set value, make external
+		self.controller = Controller(self.sense_freq, self.log_freq, 
+			self.control_freq, self.display_freq)
 
-		# self.signal_off = QtCore.pyqtSignal()
-		self.signal_off.connect(self.controller.stop)
-
-
+		# set up controller signals
+		self.signal_off.connect(self.controller.stop) #TODO: better name?
 		self.controller.signal_sense.connect(self.sensorUpdate)
 		self.controller.signal_log.connect(self.logUpdate)
+		self.controller.signal_control.connect(self.controlUpdate)
+		self.controller.signal_display.connect(self.displayUpdate)
 
 
 	def updateSystemState(self):
 		if self.on is False:
 			self.on = True
 			self.pushButton_on.setText('Off')
-			print('running...')
+			print('running...') #DEBUG
 			self.initLog() # initialize data log
 			self.controller.start() # start controller
 		else: # self.on is True
 			self.on = False
 			self.pushButton_on.setText('On')
-			print('stopped!')
+			print('stopped!') #DEBUG
 			self.signal_off.emit() # emit controller off signal #TODO: rename signal
-			print(self.data[0:10,:])
+			self.controlUpdate(vent=True) # turn off all
+			print(self.data[0:10,:]) #DEBUG
 			# self.saveLog() TODO
 		
 
@@ -87,18 +89,18 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		self.datetime_start = datetime.datetime.now() # get start date & time
 
 
-	def sensorUpdate(self,t):
+	def sensorUpdate(self, t):
 		# Read/convert pressures from ADC & update pressure of each chamber object
 
 		# self.pressures = self.adc.readAll() # read pressures
-		pressures = [1,2,3,4] #DEBUG
+		pressures = np.array([1.0,2.0,3.0,4.0]) + t*self.sense_freq #DEBUG
 
 		for name, chamber in self.chambers.items(): # update chamber pressures
 			idx_adc = self.chamber_info[name]['adc'] # ADC index of pressure chamber
 			chamber.updateMeasurement(pressures[idx_adc]) # update chamber measurement
 			self.pressures[idx_adc] = pressures[idx_adc] # update pressures in class (in order of ADC)
 
-		print(t,self.pressures)
+		# print(t,self.pressures) #DEBUG
 
 
 	def logUpdate(self,t):
@@ -108,14 +110,17 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		self.n_sample = self.n_sample + 1 # update number of samples
 
 
-	def controlUpdate(self):		
-		dutys = [0]*self.n_chambers 
-		for name, chamber in self.chambers.items(): # calculate duty cycles
-			dutys[self.chamber_info[name]['pwm']] = chamber.calcControl()
+	def controlUpdate(self, t=None, vent=False):
+		if not vent: # if duty cycles not specified		
+			dutys = [0]*self.n_chambers 
+			for name, chamber in self.chambers.items(): # calculate duty cycles
+				dutys[self.chamber_info[name]['pwm']] = chamber.calcControl()
+		else:
+			dutys = [0]*self.n_chambers #TODO: some duties should be 100 to vent chambers
+			
+		print(dutys) #DEBUG
 
 		# self.pwm.updateAll(dutys) # update duty cycles
-
-		print(name,dutys) #DEBUG
 
 
 	def displayUpdate(self):
@@ -132,8 +137,9 @@ class Controller(QtCore.QThread):
 	signal_sense = QtCore.pyqtSignal(float)
 	signal_log = QtCore.pyqtSignal(float)
 	signal_control = QtCore.pyqtSignal(float)
+	signal_display = QtCore.pyqtSignal(float)
 
-	def __init__(self, sense_freq, log_freq, control_freq):
+	def __init__(self, sense_freq, log_freq, control_freq, display_freq):
 		QtCore.QThread.__init__(self)
 
 		self.on = False
@@ -141,9 +147,11 @@ class Controller(QtCore.QThread):
 		self.sense_freq = sense_freq
 		self.log_freq = log_freq
 		self.control_freq = control_freq
+		self.display_freq = display_freq
 
 
 	def stop(self):
+		# Stop control loop
 		self.on = False
 
 
@@ -154,38 +162,9 @@ class Controller(QtCore.QThread):
 		t_log = 0.0
 		t_control = 0.0
 		t_display = 0.0
-		# datetime_start = datetime.datetime.now() # get start date & time
-
-		# t_now = time.time
-		# t_start = t_now() # get start time
-
-		# while self.on:
-		# 	t = t_now() - t_start
-		# 	if t >= (t_sensor + 1/self.sense_freq):
-		# 		pressures = self.sensorUpdate()
-		# 		self.data[n_sample,0] = t # record time
-		# 		self.data[n_sample,1:] = pressures # record pressures
-		# 		t_sensor = t # update sensor time
-		# 		n_sample = n_sample + 1 # update number of samples
-
-		# 	t = t_now() - t_start
-		# 	if t >= (t_control + 1/self.control_freq):
-		# 		self.controlUpdate()
-		# 		t_control = t # update control time
-
-		# 	t = t_now() - t_start
-		# 	if t >= (t_display+ 1/self.display_freq):
-		# 		self.displayUpdate()
-		# 		t_display = t # update display time
-
-		# #TODO: set duty cycles to zero
-		# #TODO: export data
-		# print('loop ended')
-
 
 		t_now = time.time
 		t_start = t_now() # get start time
-
 		while self.on:
 			t = t_now() - t_start
 			if t >= (t_sensor + 1/self.sense_freq):
@@ -194,16 +173,22 @@ class Controller(QtCore.QThread):
 
 			t = t_now() - t_start
 			if t >= (t_log + 1/self.log_freq):
-				self.signal_log.emit(t) # emit sensor update signal
-				t_log = t # update sensor time
+				self.signal_log.emit(t) # emit log update signal
+				t_log = t # update log time
 
 			t = t_now() - t_start
 			if t >= (t_control + 1/self.control_freq):
 				self.signal_control.emit(t)	
 				t_control = t # update control time
 
+			t = t_now() - t_start
+			if t >= (t_display + 1/self.display_freq):
+				self.signal_display.emit(t)
+				t_display = t # update display time
 
-			time.sleep(0.1) #DEBUG
+			# time.sleep(0.1) #DEBUG
+
+
 
 
 
@@ -230,7 +215,7 @@ class PressureChamber:
 			# self.control['freq'] = control_freq
 		self.pres_meas = 0 # initialize pressure measurement
 		self.pres_set = 0 # initialize pressure setpoint
-		self.enabled = False
+		self.enabled = True
 
 			# self.controller = PressureController(control_freq)
 
@@ -283,6 +268,7 @@ class PressureChamber:
 			#TODO: control law
 		else:
 			duty = 0
+
 		return duty
 
 
