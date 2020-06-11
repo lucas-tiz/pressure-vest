@@ -28,6 +28,8 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		super(self.__class__, self).__init__()
 		self.setupUi(self)
 
+		self.setWindowTitle("Pressure Vest Controller")
+
 		# main attributes
 		self.on = False
 		self.t_app_start = time.time()
@@ -52,7 +54,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		self.sense_freq = 5 # (Hz) TODO: set value, make external
 		self.log_freq = 1 # (Hz) TODO: set value, make external
 		self.control_freq = 1 # (Hz) TODO: set value, make external
-		self.display_freq = 1 # (Hz) TODO: set value, make external
+		self.display_freq = 5 # (Hz) TODO: set value, make external
 		self.controller = Controller(self.sense_freq, self.log_freq, 
 			self.control_freq, self.display_freq)
 
@@ -64,16 +66,21 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		self.controller.signal_display.connect(self.displayUpdate)
 
 
+# 235,64,52
+
 	def updateSystemState(self):
 		if self.on is False:
 			self.on = True
 			self.pushButton_on.setText('Off')
+			# self.pushButton_on.setStyleSheet("background-color: rgb(255, 0, 0);\n")
+			self.pushButton_on.setStyleSheet("background-color: rgb(235, 64, 52);\n")
 			print('running...') #DEBUG
 			self.initLog() # initialize data log
 			self.controller.start() # start controller
 		else: # self.on is True
 			self.on = False
 			self.pushButton_on.setText('On')
+			self.pushButton_on.setStyleSheet("background-color: rgb(0, 190, 0);\n")
 			print('stopped!') #DEBUG
 			self.signal_off.emit() # emit controller off signal #TODO: rename signal
 			self.controlUpdate(vent=True) # turn off all
@@ -123,9 +130,11 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		# self.pwm.updateAll(dutys) # update duty cycles
 
 
-	def displayUpdate(self):
+	def displayUpdate(self,t):
 		for name, chamber in self.chambers.items(): # update chamber pressures
 			chamber.updateMeasurementDisplay()
+
+		self.label_t_run.setText(str(round(t/60,1))) # (min) update run time
 
 
 	# def saveLog(self):

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>806</width>
-    <height>844</height>
+    <width>412</width>
+    <height>509</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,24 +37,24 @@
    <widget class="QPushButton" name="pushButton_on">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>290</x>
       <y>430</y>
       <width>85</width>
       <height>27</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+background-color: rgb(0, 190, 0);</string>
+    </property>
     <property name="text">
      <string>On</string>
-    </property>
-   </widget>
-   <widget class="QLCDNumber" name="lcdNumber">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>430</y>
-      <width>64</width>
-      <height>23</height>
-     </rect>
     </property>
    </widget>
    <widget class="QLabel" name="label_9">
@@ -62,7 +62,7 @@
      <rect>
       <x>10</x>
       <y>435</y>
-      <width>67</width>
+      <width>81</width>
       <height>17</height>
      </rect>
     </property>
@@ -301,7 +301,7 @@ border-color: rgb(196, 193, 189);</string>
       <rect>
        <x>8</x>
        <y>6</y>
-       <width>87</width>
+       <width>101</width>
        <height>17</height>
       </rect>
      </property>
@@ -325,7 +325,7 @@ border-color: rgb(196, 193, 189);</string>
     <widget class="QCheckBox" name="checkBox_alr">
      <property name="geometry">
       <rect>
-       <x>101</x>
+       <x>110</x>
        <y>6</y>
        <width>20</width>
        <height>21</height>
@@ -572,7 +572,7 @@ border-color: rgb(196, 193, 189);</string>
       <rect>
        <x>8</x>
        <y>6</y>
-       <width>87</width>
+       <width>101</width>
        <height>17</height>
       </rect>
      </property>
@@ -596,7 +596,7 @@ border-color: rgb(196, 193, 189);</string>
     <widget class="QCheckBox" name="checkBox_aur">
      <property name="geometry">
       <rect>
-       <x>101</x>
+       <x>110</x>
        <y>6</y>
        <width>20</width>
        <height>21</height>
@@ -864,7 +864,7 @@ border-color: rgb(196, 193, 189);</string>
     <widget class="QCheckBox" name="checkBox_all">
      <property name="geometry">
       <rect>
-       <x>101</x>
+       <x>110</x>
        <y>6</y>
        <width>20</width>
        <height>21</height>
@@ -1132,7 +1132,7 @@ border-color: rgb(196, 193, 189);</string>
     <widget class="QCheckBox" name="checkBox_aul">
      <property name="geometry">
       <rect>
-       <x>101</x>
+       <x>110</x>
        <y>6</y>
        <width>20</width>
        <height>21</height>
@@ -1152,26 +1152,82 @@ border-color: rgb(196, 193, 189);</string>
      </property>
     </widget>
    </widget>
-   <zorder>label</zorder>
-   <zorder>pushButton_on</zorder>
-   <zorder>lcdNumber</zorder>
-   <zorder>label_9</zorder>
-   <zorder>horizontalSlider_chamber1</zorder>
-   <zorder>doubleSpinBox_chamber1</zorder>
-   <zorder>label_2</zorder>
-   <zorder>groupBox_alr_2</zorder>
-   <zorder>layoutWidget_7</zorder>
-   <zorder>groupBox_alr_3</zorder>
-   <zorder>groupBox_alr_4</zorder>
-   <zorder>groupBox_alr_5</zorder>
+   <widget class="QLabel" name="label_t_run">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>430</y>
+      <width>51</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+border-color: rgb(196, 193, 189);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="text">
+     <string>0.0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_21">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>433</y>
+      <width>41</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>(min)</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>806</width>
-     <height>25</height>
+     <width>412</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>
