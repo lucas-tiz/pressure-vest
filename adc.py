@@ -57,9 +57,22 @@ class Adc:
 		self.spi.writebytes2([msbyte, lsbyte])
 
 
+
+if __name__=="__main__":
+	bus = 0
+	device = 0
+	last_channel = 3 
+	adc = Adc(bus, device, last_channel)
+	print('setup completed')
+		
+		
 		
 # 0x4200 0100 0010 0000 0000
 
 # 0x93C0 1001 0011 1100 0000
 
 # 0x3800 0011 1000 0000 0000
+
+
+
+
