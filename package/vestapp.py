@@ -10,7 +10,7 @@ from PyQt5 import QtCore
 
 from package.ui	import mainwindow
 # from package import adc
-# from package import pwm
+# from package.pca9685_driver import device
 
 
 ############################################################
