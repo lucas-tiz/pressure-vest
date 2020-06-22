@@ -8,9 +8,9 @@ import time
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5 import QtGui, QtCore
 
-from package import chamber
+from package.chamber import PressureChamber
 from package.ui	import mainwindow
-# from package import adc
+from package import adc
 # from package.pca9685_driver import Device
 from package import plotter
 
@@ -43,8 +43,8 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		self.pushButton_on.clicked.connect(lambda: self.switchSystemState())
 
 		# instantiate ADC
-		# last_channel = 7 #TODO: set last_channel
-		# self.adc = adc.Adc(0, 0, last_channel) 
+		last_channel = 3 #TODO: set last_channel
+		self.adc = adc.Adc(0, 0, last_channel) 
 
 		# instantiate PWM
 		# self.pwm = Device(0x40) # instantiate PCA9685 #TODO: uncomment
@@ -52,13 +52,13 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		#TODO: ensure that initial PWM duties are 0
 
 		# instantiate chambers
-		self.chamber_info = chamber_info
+		# ~ self.chamber_info = chamber_info
 		self.n_chambers = len(chamber_info)
 		self.pressures = [0]*self.n_chambers # chamber pressures
-		self.chambers = dict() # dict of chambers
-		for name in chamber_info:
-			self.chambers[name] = chamber.PressureChamber(self, name) # instantiate PressureChamber for each chamber
-
+		self.chambers = chamber_info # dict of chambers
+		for key, chamber in self.chambers.items():
+			chamber['obj'] = PressureChamber(self, key) # instantiate PressureChamber for each chamber
+	
 		# set up sensor idle thread
 		self.thread_idle = IdleThread(self.sense_freq, self.display_freq) # instantiate thread object
 		self.signal_stop_idle.connect(self.thread_idle.stop) # set up signal to stop thread
@@ -75,10 +75,10 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 		# set up plot window if plotting on
 		if plot:
-			self.plot_freq = 1 # (Hz) TODO
-			plot_window = 10 # (s)
+			self.plot_freq = 2 # (Hz) TODO
+			plot_window = 6 # (s)
 			buffer_len = round(plot_window*self.plot_freq)
-			self.plot_window = plotter.PlotWindow(self.chamber_info, self.chambers, buffer_len, 
+			self.plot_window = plotter.PlotWindow(self.chambers, buffer_len, 
 				self.signal_stop_plot)
 
 			action_plot = QtGui.QAction('Plot data', self)
@@ -141,25 +141,34 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 	def sensorUpdate(self, t):
 		# Read/convert pressures from ADC & update pressure of each chamber object
-		# self.pressures = self.adc.readAll() # read pressures #TODO: uncomment
-		pressures = np.sin(t + np.array([0,0.25,0.5,0.75])*np.pi) + 2.5 #DEBUG
+		data = self.adc.readAll() # read pressures #TODO: uncomment
+		# ~ pressures = np.sin(t + np.array([0,0.25,0.5,0.75])*np.pi) + 2.5 #DEBUG
 
-		for name, chamber in self.chambers.items(): # update chamber pressures
-			idx_adc = self.chamber_info[name]['adc'] # ADC index of pressure chamber
-			chamber.updateMeasurement(pressures[idx_adc]) # update chamber measurement
-			self.pressures[idx_adc] = pressures[idx_adc] # update pressures in class (in order of ADC)
+		for chamber in self.chambers.values(): # update chamber pressures
+			idx_adc = chamber['adc'] # ADC index of pressure chamber
+			counts = data[idx_adc][1] # corresponding pressure data point
+			Vs = 5.0
+			pressure = (counts*(5.0/4095.0) - 0.10*Vs)*(5.0/(0.8*Vs)) # transfer function
+			
+			chamber['obj'].updateMeasurement(pressure) # update chamber measurement
+			self.pressures[idx_adc] = pressure # update pressures in class (in order of ADC)
+			
+			# ~ idx_adc = self.chamber_info[name]['adc'] # ADC index of pressure chamber
+			# ~ chamber.updateMeasurement(pressures[idx_adc]) # update chamber measurement
+			# ~ self.pressures[idx_adc] = pressures[idx_adc] # update pressures in class (in order of ADC)
 
 
 	def sensorDisplayUpdate(self,t):
 		for chamber in self.chambers.values(): # update chamber pressures
-			chamber.updateMeasurementDisplay()
+			chamber['obj'].updateMeasurementDisplay()
 
 
 	def controlUpdate(self, t=None, vent=False):
 		if not vent: # if vent is False
 			dutys = [0]*self.n_chambers 
-			for name, chamber in self.chambers.items(): # calculate duty cycles
-				dutys[self.chamber_info[name]['pwm']] = chamber.calcControl()
+			for chamber in self.chambers.values(): # calculate duty cycles
+				idx_pwm = chamber['pwm']
+				dutys[idx_pwm] = chamber['obj'].calcControl()
 		else:
 			dutys = [0]*self.n_chambers #TODO: some duties should be 100 to vent chambers
 			
@@ -182,7 +191,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 	def saveLog(self):
 		header = [None]*(self.n_chambers+1)
 		header[0] = 'time (s)'
-		for name, chamber in self.chamber_info.items(): # pressures logged in order of ADC
+		for name, chamber in self.chambers.items(): # pressures logged in order of ADC
 			idx_adc = chamber['adc']
 			header[idx_adc+1] = name + ' (psi)'
 		header = ', '.join(header)
