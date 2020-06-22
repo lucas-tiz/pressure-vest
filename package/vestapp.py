@@ -187,7 +187,9 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 			header[idx_adc+1] = name + ' (psi)'
 		header = ', '.join(header)
 
-		dirname = 'C:/Users/Lucas/Desktop/data' #TODO
+		dirname = os.path.expanduser('~/Desktop/data')
+		if not os.path.isdir(dirname):
+			os.mkdir(dirname)
 		filename = self.datetime_start.strftime("%Y-%m-%d_%H-%M-%S")
 		np.savetxt(os.path.join(dirname, filename + '.txt'), self.data, delimiter = ', ',
 			fmt='%0.2f', header=header)
@@ -326,3 +328,8 @@ class RunThread(QtCore.QThread):
 # 	status of killswitch
 #	diagram of body/highlighting of active chambers
 # 	touchpad?
+
+
+
+
+# pyuic5 designer/mainwindow.ui -o package/ui/mainwindow.py
