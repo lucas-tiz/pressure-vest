@@ -18,7 +18,7 @@ class PressureChamber:
 			lambda: self.updateSetpoint(1)) # spinbox update
 		self.slider.valueChanged.connect(
 			lambda: self.updateSetpoint(2)) # slider update
-		self.checkbox.stateChanged.connect(self.enableChamber) # checkbox update
+		self.groupbox.toggled.connect(self.enableChamber) # checkbox update
 
 		# chamber attributes
 		self.pres_meas = 0 # initialize pressure measurement
@@ -29,11 +29,9 @@ class PressureChamber:
 
 	def enableChamber(self):
 		# Enable or disable pressure chamber
-		if self.checkbox.isChecked() == 1:
-			self.frame.setEnabled(True) # enable chamber GUI
+		if self.groupbox.isChecked() == 1:
 			self.enabled = True # enable controller
 		else:
-			self.frame.setEnabled(False) # disable chamber GUI
 			self.enabled = False # disable controller
 
 
