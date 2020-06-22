@@ -12,7 +12,19 @@ if __name__ == "__main__":
 					'all':{'adc':3, 'pwm':3} }
 
 	app = QApplication(sys.argv)
-	form = vestapp.VestController(chamber_info)
+
+	if "plot" in sys.argv[1:]:
+		form = vestapp.VestController(chamber_info, plot=True)
+	else:
+		form = vestapp.VestController(chamber_info)
+
 	form.show()
+
+
+	# # plotter
+	# from package import plotter
+	# plot_window = plotter.PlotWindow()
+	# plot_window.show()
+
 	sys.exit(app.exec_())
 

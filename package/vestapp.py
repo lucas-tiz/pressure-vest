@@ -1,52 +1,63 @@
 #!/usr/bin/env python3
 import sys
+import os
 import numpy as np
 import datetime
 import time
 
-
 from PyQt5.QtWidgets import QMainWindow
-from PyQt5 import QtCore
+from PyQt5 import QtGui, QtCore
 
+from package import chamber
 from package.ui	import mainwindow
 # from package import adc
-# from package.pca9685_driver import device
+# from package.pca9685_driver import Device
+from package import plotter
 
 
-############################################################
 class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
+	signal_stop_plot = QtCore.pyqtSignal()
 	signal_stop_idle = QtCore.pyqtSignal()
 	signal_stop_run = QtCore.pyqtSignal()
 
-	def __init__(self, chamber_info):
+	def __init__(self, chamber_info, plot=False):
 		super(self.__class__, self).__init__()
 		self.setupUi(self)
 		self.setWindowTitle("Pressure Vest Controller")
 
+		QtGui.QApplication.setStyle(QtGui.QStyleFactory.create("Fusion"))
+
+		# system attributes
+		self.run_on = False
+		self.t_app_start = time.time()
+
+		# timing attributes
 		self.sense_freq = 5 # (Hz) TODO: set value, make external
 		self.display_freq = 5 # (Hz) TODO: set value, make external
 		self.control_freq = 1 # (Hz) TODO: set value, make external
 		self.log_freq = 1 # (Hz) TODO: set value, make external
-
-		# main attributes
-		self.run_on = False
-		self.t_app_start = time.time()
+		self.pwm_freq = 45 # (Hz) TODO: set value, make external
 
 		# system signals & slots
 		self.pushButton_on.clicked.connect(lambda: self.switchSystemState())
 
-		# instantiate ADC and PWM modules
-		# self.adc = Adc(bus, device, last_channel) #TODO: set adc props
-		# self.pwm = Pwm() #TODO: set up PWM
-		
+		# instantiate ADC
+		# last_channel = 7 #TODO: set last_channel
+		# self.adc = adc.Adc(0, 0, last_channel) 
+
+		# instantiate PWM
+		# self.pwm = Device(0x40) # instantiate PCA9685 #TODO: uncomment
+		# self.pwm.set_pwm_frequency(self.pwn_freq) # (Hz)
+		#TODO: ensure that initial PWM duties are 0
+
 		# instantiate chambers
 		self.chamber_info = chamber_info
 		self.n_chambers = len(chamber_info)
 		self.pressures = [0]*self.n_chambers # chamber pressures
 		self.chambers = dict() # dict of chambers
 		for name in chamber_info:
-			self.chambers[name] = PressureChamber(self, name) # instantiate PressureChamber for each chamber
+			self.chambers[name] = chamber.PressureChamber(self, name) # instantiate PressureChamber for each chamber
 
 		# set up sensor idle thread
 		self.thread_idle = IdleThread(self.sense_freq, self.display_freq) # instantiate thread object
@@ -61,6 +72,36 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		self.thread_run.signal_control.connect(self.controlUpdate)
 		self.thread_run.signal_display.connect(self.systemDisplayUpdate)
 		self.thread_run.signal_log.connect(self.logUpdate)
+
+		# set up plot window if plotting on
+		if plot:
+			self.plot_freq = 1 # (Hz) TODO
+			plot_window = 10 # (s)
+			buffer_len = round(plot_window*self.plot_freq)
+			self.plot_window = plotter.PlotWindow(self.chamber_info, self.chambers, buffer_len, 
+				self.signal_stop_plot)
+
+			action_plot = QtGui.QAction('Plot data', self)
+			action_plot.setShortcut("Ctrl+P")
+			action_plot.setStatusTip('Plot chamber pressure data')
+			action_plot.triggered.connect(self.showPlotter)
+			self.menu_file = self.menuBar.addMenu('&File')
+			self.menu_file.addAction(action_plot)
+
+
+
+		#TODO: put somewhere
+		# pixmap = QtGui.QPixmap('designer/img/ant.jpg')
+		self.label_2.setPixmap(QtGui.QPixmap("designer/img/anterior.png"))
+		self.label_2.setScaledContents(True)
+
+
+	def showPlotter(self):
+		self.plot_window.show()
+		self.thread_plot = PlotThread(self.plot_window, self.plot_freq)
+		self.signal_stop_plot.connect(self.thread_plot.stop) # set up signal to stop thread
+		self.thread_plot.signal_plot.connect(self.plot_window.updateDisplay)
+		self.thread_plot.start()
 
 
 	def switchSystemState(self):
@@ -82,12 +123,12 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 	def stop(self):
 		self.run_on = False
 		self.pushButton_on.setText('Run')
-		self.pushButton_on.setStyleSheet("background-color: rgb(0, 190, 0);\n")
+		self.pushButton_on.setStyleSheet("background-color: rgb(0, 170, 0);\n")
 		print('stopped!') #DEBUG
 		self.signal_stop_run.emit() # emit run stop signal
 		self.controlUpdate(vent=True) # turn off all
 		print(self.data[0:10,:]) #DEBUG
-		# self.saveLog() TODO
+		self.saveLog()
 		
 
 	def initLog(self):
@@ -100,8 +141,8 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 	def sensorUpdate(self, t):
 		# Read/convert pressures from ADC & update pressure of each chamber object
-		# self.pressures = self.adc.readAll() # read pressures
-		pressures = np.array([1.0,2.0,3.0,4.0]) + t*self.sense_freq #DEBUG
+		# self.pressures = self.adc.readAll() # read pressures #TODO: uncomment
+		pressures = np.sin(t + np.array([0,0.25,0.5,0.75])*np.pi) + 2.5 #DEBUG
 
 		for name, chamber in self.chambers.items(): # update chamber pressures
 			idx_adc = self.chamber_info[name]['adc'] # ADC index of pressure chamber
@@ -115,16 +156,16 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 
 	def controlUpdate(self, t=None, vent=False):
-		if not vent: # if duty cycles not specified		
+		if not vent: # if vent is False
 			dutys = [0]*self.n_chambers 
 			for name, chamber in self.chambers.items(): # calculate duty cycles
 				dutys[self.chamber_info[name]['pwm']] = chamber.calcControl()
 		else:
 			dutys = [0]*self.n_chambers #TODO: some duties should be 100 to vent chambers
 			
-		print(dutys) #DEBUG
-
-		# self.pwm.updateAll(dutys) # update duty cycles
+		print(t, dutys) #DEBUG
+		# for idx, duty in enumerate(dutys): #TODO: uncomment
+		# 	self.pwm.set_pwm(idx, duty) # update duty cycles
 
 
 	def systemDisplayUpdate(self,t):
@@ -138,8 +179,18 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		self.n_sample = self.n_sample + 1 # update number of samples
 
 
-	# def saveLog(self):
-	# 	#TODO: get header names from chamber dict
+	def saveLog(self):
+		header = [None]*(self.n_chambers+1)
+		header[0] = 'time (s)'
+		for name, chamber in self.chamber_info.items(): # pressures logged in order of ADC
+			idx_adc = chamber['adc']
+			header[idx_adc+1] = name + ' (psi)'
+		header = ', '.join(header)
+
+		dirname = 'C:/Users/Lucas/Desktop/data' #TODO
+		filename = self.datetime_start.strftime("%Y-%m-%d_%H-%M-%S")
+		np.savetxt(os.path.join(dirname, filename + '.txt'), self.data, delimiter = ', ',
+			fmt='%0.2f', header=header)
 
 
 	def closeEvent(self, event):
@@ -152,6 +203,37 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 
 ############################################################
+class PlotThread(QtCore.QThread):
+	# When running: update plots
+	signal_plot = QtCore.pyqtSignal(float)
+
+	def __init__(self, plot_window, plot_freq):
+		QtCore.QThread.__init__(self)
+		self.running = False
+		self.plot_freq = plot_freq		
+
+
+	def stop(self):
+		print('stop plot thread')
+		self.running = False
+
+
+	def run(self):
+		# Loop:
+		self.running = True
+		t_plot = 0.0
+		t_now = time.time
+		t_start = t_now() # get start time
+		while self.running:
+			t = t_now() - t_start
+			if t >= (t_plot + 1/self.plot_freq):
+				self.signal_plot.emit(t) # emit sensor update signal
+				t_plot = t # update plot time
+				# print('plot update')
+
+
+
+############################################################
 class IdleThread(QtCore.QThread):
 	# While app is running: sense pressures & update pressure displays
 	signal_sense = QtCore.pyqtSignal(float)
@@ -159,7 +241,6 @@ class IdleThread(QtCore.QThread):
 
 	def __init__(self, sense_freq, display_freq):
 		QtCore.QThread.__init__(self)
-
 		self.running = False
 		self.sense_freq = sense_freq
 		self.display_freq = display_freq
@@ -174,7 +255,6 @@ class IdleThread(QtCore.QThread):
 		self.running = True
 		t_sensor = 0.0
 		t_display = 0.0
-
 		t_now = time.time
 		t_start = t_now() # get start time
 		while self.running:
@@ -199,7 +279,6 @@ class RunThread(QtCore.QThread):
 
 	def __init__(self, control_freq, display_freq, log_freq):
 		QtCore.QThread.__init__(self)
-
 		self.running = False
 		self.control_freq = control_freq
 		self.display_freq = display_freq
@@ -216,13 +295,13 @@ class RunThread(QtCore.QThread):
 		t_control = 0.0
 		t_display = 0.0
 		t_log = 0.0
-
 		t_now = time.time
 		t_start = t_now() # get start time
 		while self.running:
 			t = t_now() - t_start
 			if t >= (t_control + 1/self.control_freq):
 				self.signal_control.emit(t)	# emit control update signal
+				print(t-t_control)
 				t_control = t # update control time
 
 			t = t_now() - t_start
@@ -234,88 +313,6 @@ class RunThread(QtCore.QThread):
 			if t >= (t_log + 1/self.log_freq):
 				self.signal_log.emit(t) # emit log update signal
 				t_log = t # update log time
-
-
-
-############################################################
-class PressureChamber:
-	# Manage interaction between GUI signals & pressure control
-	def __init__(self, form, chamber_name):
-		# GUI objects
-		self.form = form
-		self.frame = getattr(form, 'frame_' + chamber_name)
-		self.checkbox = getattr(form, 'checkBox_' + chamber_name)
-		self.spinbox = getattr(form, 'doubleSpinBox_' + chamber_name)
-		self.slider = getattr(form, 'horizontalSlider_' + chamber_name)
-		self.label = getattr(form, 'label_' + chamber_name)
-
-		# GUI signals & slots
-		self.spinbox.valueChanged.connect(
-			lambda: self.updateSetpoint(1)) # spinbox update
-		self.slider.valueChanged.connect(
-			lambda: self.updateSetpoint(2)) # slider update
-		self.checkbox.stateChanged.connect(self.enableChamber) # checkbox update
-
-		# chamber attributes
-		self.pres_meas = 0 # initialize pressure measurement
-		self.pres_set = 0 # initialize pressure setpoint
-		self.enabled = True
-		self.duty = 0 #DEBUG
-
-
-	def enableChamber(self):
-		# Enable or disable pressure chamber
-		if self.checkbox.isChecked() == 1:
-			self.frame.setEnabled(True) # enable chamber GUI
-			self.enabled = True # enable controller
-		else:
-			self.frame.setEnabled(False) # disable chamber GUI
-			self.enabled = False # disable controller
-
-
-	def updateSetpoint(self, n):
-		# Update chamber pressure setpoint
-
-		# update GUI
-		self.spinbox.blockSignals(True)
-		self.slider.blockSignals(True)
-
-		spin_max = self.spinbox.maximum()
-		slider_max = self.slider.maximum()
-		if n == 1: # spin box updated
-			pres_set = self.spinbox.value()
-			self.slider.setValue(round(pres_set*slider_max/spin_max,1))
-		if n == 2: # slider updated
-			slider_val = self.slider.value()
-			pres_set  = round(slider_val*spin_max/slider_max,1)
-			self.spinbox.setValue(pres_set)
-
-		self.spinbox.blockSignals(False)
-		self.slider.blockSignals(False)
-
-		# update setpoint
-		self.pres_set = pres_set
-		print(self.pres_set) #DEBUG
-
-
-	def updateMeasurement(self, pressure): 
-		self.pres_meas = pressure
-
-
-	def calcControl(self):
-		if self.enabled:
-			self.duty = self.duty + 1 #DEBUG
-			duty = self.duty #DEBUG
-			#TODO: control law
-		else:
-			duty = 0
-
-		return duty
-
-
-	def updateMeasurementDisplay(self):
-		self.label.setText(str(round(self.pres_meas,1)))
-
 
 
 
