@@ -76,4 +76,5 @@ class PressureChamber:
 
 
 	def updateMeasurementDisplay(self):
+		# ~ print(self.pres_meas)
 		self.label.setText(str(round(self.pres_meas,1)))
