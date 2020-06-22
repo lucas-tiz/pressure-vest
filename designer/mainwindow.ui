@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>412</width>
-    <height>509</height>
+    <width>505</width>
+    <height>638</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>160</x>
+      <x>212</x>
       <y>20</y>
       <width>78</width>
       <height>22</height>
@@ -37,8 +37,8 @@
    <widget class="QPushButton" name="pushButton_on">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>430</y>
+      <x>280</x>
+      <y>517</y>
       <width>85</width>
       <height>27</height>
      </rect>
@@ -50,8 +50,8 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">
-background-color: rgb(0, 190, 0);</string>
+     <string notr="true">background-color: rgb(0, 190, 0);
+background-color: rgb(0, 170, 0);</string>
     </property>
     <property name="text">
      <string>Run</string>
@@ -60,8 +60,8 @@ background-color: rgb(0, 190, 0);</string>
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>435</y>
+      <x>20</x>
+      <y>522</y>
       <width>81</width>
       <height>17</height>
      </rect>
@@ -77,13 +77,13 @@ background-color: rgb(0, 190, 0);</string>
      <string>Run Time</string>
     </property>
    </widget>
-   <widget class="QGroupBox" name="groupBox_alr_2">
+   <widget class="QGroupBox" name="groupBox_alr">
     <property name="geometry">
      <rect>
-      <x>26</x>
-      <y>230</y>
-      <width>171</width>
-      <height>151</height>
+      <x>76</x>
+      <y>250</y>
+      <width>162</width>
+      <height>146</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -92,14 +92,21 @@ background-color: rgb(0, 190, 0);</string>
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="title">
-     <string/>
+     <string>Lower Right</string>
     </property>
     <widget class="QFrame" name="frame_alr">
      <property name="geometry">
       <rect>
        <x>4</x>
-       <y>30</y>
+       <y>24</y>
        <width>154</width>
        <height>120</height>
       </rect>
@@ -110,8 +117,15 @@ background-color: rgb(0, 190, 0);</string>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::NoFrame</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
@@ -133,6 +147,9 @@ background-color: rgb(0, 190, 0);</string>
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">selection-background-color: rgb(141, 70, 212);</string>
       </property>
       <property name="maximum">
        <number>100</number>
@@ -296,37 +313,11 @@ border-color: rgb(196, 193, 189);</string>
       </property>
      </widget>
     </widget>
-    <widget class="QLabel" name="label_18">
-     <property name="geometry">
-      <rect>
-       <x>8</x>
-       <y>6</y>
-       <width>101</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Lower Right</string>
-     </property>
-    </widget>
     <widget class="QCheckBox" name="checkBox_alr">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>6</y>
+       <x>102</x>
+       <y>0</y>
        <width>20</width>
        <height>21</height>
       </rect>
@@ -344,14 +335,34 @@ border-color: rgb(196, 193, 189);</string>
       <bool>true</bool>
      </property>
     </widget>
+    <widget class="QLabel" name="label_alr_color">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>23</y>
+       <width>161</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(236, 177, 32, 100);
+background-color: rgb(170, 170, 255, 150);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <zorder>label_alr_color</zorder>
+    <zorder>frame_alr</zorder>
+    <zorder>checkBox_alr</zorder>
    </widget>
-   <widget class="QGroupBox" name="groupBox_alr_3">
+   <widget class="QGroupBox" name="groupBox_aur">
     <property name="geometry">
      <rect>
-      <x>26</x>
-      <y>60</y>
-      <width>171</width>
-      <height>151</height>
+      <x>76</x>
+      <y>79</y>
+      <width>162</width>
+      <height>146</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -360,8 +371,15 @@ border-color: rgb(196, 193, 189);</string>
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="title">
-     <string/>
+     <string>Upper Right</string>
     </property>
     <widget class="QFrame" name="frame_aur">
      <property name="enabled">
@@ -370,8 +388,8 @@ border-color: rgb(196, 193, 189);</string>
      <property name="geometry">
       <rect>
        <x>4</x>
-       <y>30</y>
-       <width>154</width>
+       <y>24</y>
+       <width>156</width>
        <height>120</height>
       </rect>
      </property>
@@ -381,8 +399,18 @@ border-color: rgb(196, 193, 189);</string>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::NoFrame</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
@@ -404,6 +432,11 @@ border-color: rgb(196, 193, 189);</string>
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(255, 255, 255, 0);
+selection-background-color: rgb(0, 114, 189);
+</string>
       </property>
       <property name="maximum">
        <number>100</number>
@@ -433,6 +466,9 @@ border-color: rgb(196, 193, 189);</string>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="styleSheet">
+       <string notr="true">border-color: rgb(255, 255, 255);</string>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -456,6 +492,9 @@ border-color: rgb(196, 193, 189);</string>
        <font>
         <pointsize>10</pointsize>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
       </property>
       <property name="text">
        <string>setpoint (psi)</string>
@@ -484,6 +523,9 @@ border-color: rgb(196, 193, 189);</string>
         <width>50</width>
         <height>16777215</height>
        </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -567,37 +609,11 @@ border-color: rgb(196, 193, 189);</string>
       </property>
      </widget>
     </widget>
-    <widget class="QLabel" name="label_">
-     <property name="geometry">
-      <rect>
-       <x>8</x>
-       <y>6</y>
-       <width>101</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Upper Right</string>
-     </property>
-    </widget>
     <widget class="QCheckBox" name="checkBox_aur">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>6</y>
+       <x>102</x>
+       <y>0</y>
        <width>20</width>
        <height>21</height>
       </rect>
@@ -615,14 +631,35 @@ border-color: rgb(196, 193, 189);</string>
       <bool>true</bool>
      </property>
     </widget>
+    <widget class="QLabel" name="label_aur_color">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>23</y>
+       <width>161</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(0, 170, 255, 100);
+background-color: rgb(52, 141, 200, 150);
+background-color: rgb(53, 151, 255, 150);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <zorder>label_aur_color</zorder>
+    <zorder>frame_aur</zorder>
+    <zorder>checkBox_aur</zorder>
    </widget>
-   <widget class="QGroupBox" name="groupBox_alr_4">
+   <widget class="QGroupBox" name="groupBox_all">
     <property name="geometry">
      <rect>
-      <x>216</x>
-      <y>229</y>
-      <width>171</width>
-      <height>151</height>
+      <x>266</x>
+      <y>249</y>
+      <width>162</width>
+      <height>146</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -631,14 +668,21 @@ border-color: rgb(196, 193, 189);</string>
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="title">
-     <string/>
+     <string>Lower Left</string>
     </property>
     <widget class="QFrame" name="frame_all">
      <property name="geometry">
       <rect>
        <x>4</x>
-       <y>30</y>
+       <y>24</y>
        <width>154</width>
        <height>120</height>
       </rect>
@@ -649,8 +693,15 @@ border-color: rgb(196, 193, 189);</string>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::NoFrame</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
@@ -672,6 +723,10 @@ border-color: rgb(196, 193, 189);</string>
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">selection-background-color: rgb(119, 172, 48);
+selection-background-color: rgb(0, 170, 0);</string>
       </property>
       <property name="maximum">
        <number>100</number>
@@ -835,37 +890,11 @@ border-color: rgb(196, 193, 189);</string>
       </property>
      </widget>
     </widget>
-    <widget class="QLabel" name="label_24">
-     <property name="geometry">
-      <rect>
-       <x>8</x>
-       <y>6</y>
-       <width>87</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Lower Left</string>
-     </property>
-    </widget>
     <widget class="QCheckBox" name="checkBox_all">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>6</y>
+       <x>94</x>
+       <y>0</y>
        <width>20</width>
        <height>21</height>
       </rect>
@@ -883,14 +912,34 @@ border-color: rgb(196, 193, 189);</string>
       <bool>true</bool>
      </property>
     </widget>
+    <widget class="QLabel" name="label_alr_color_4">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>23</y>
+       <width>161</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(119, 172, 48, 100);
+background-color: rgb(173, 206, 130, 150);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <zorder>label_alr_color_4</zorder>
+    <zorder>frame_all</zorder>
+    <zorder>checkBox_all</zorder>
    </widget>
-   <widget class="QGroupBox" name="groupBox_alr_5">
+   <widget class="QGroupBox" name="groupBox_aul">
     <property name="geometry">
      <rect>
-      <x>216</x>
-      <y>59</y>
-      <width>171</width>
-      <height>151</height>
+      <x>266</x>
+      <y>79</y>
+      <width>162</width>
+      <height>146</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -899,14 +948,21 @@ border-color: rgb(196, 193, 189);</string>
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="title">
-     <string/>
+     <string>Upper Left</string>
     </property>
     <widget class="QFrame" name="frame_aul">
      <property name="geometry">
       <rect>
        <x>4</x>
-       <y>30</y>
+       <y>24</y>
        <width>154</width>
        <height>120</height>
       </rect>
@@ -917,8 +973,15 @@ border-color: rgb(196, 193, 189);</string>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::NoFrame</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
@@ -940,6 +1003,9 @@ border-color: rgb(196, 193, 189);</string>
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">selection-background-color: rgb(216, 83, 25);</string>
       </property>
       <property name="maximum">
        <number>100</number>
@@ -991,6 +1057,8 @@ border-color: rgb(196, 193, 189);</string>
       <property name="font">
        <font>
         <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
        </font>
       </property>
       <property name="text">
@@ -1020,6 +1088,13 @@ border-color: rgb(196, 193, 189);</string>
         <width>50</width>
         <height>16777215</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1052,6 +1127,8 @@ border-color: rgb(196, 193, 189);</string>
       <property name="font">
        <font>
         <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
        </font>
       </property>
       <property name="text">
@@ -1085,6 +1162,12 @@ border-color: rgb(196, 193, 189);</string>
         <height>25</height>
        </size>
       </property>
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="autoFillBackground">
        <bool>false</bool>
       </property>
@@ -1103,37 +1186,11 @@ border-color: rgb(196, 193, 189);</string>
       </property>
      </widget>
     </widget>
-    <widget class="QLabel" name="label_27">
-     <property name="geometry">
-      <rect>
-       <x>8</x>
-       <y>6</y>
-       <width>87</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Upper Left</string>
-     </property>
-    </widget>
     <widget class="QCheckBox" name="checkBox_aul">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>6</y>
+       <x>94</x>
+       <y>0</y>
        <width>20</width>
        <height>21</height>
       </rect>
@@ -1151,6 +1208,27 @@ border-color: rgb(196, 193, 189);</string>
       <bool>true</bool>
      </property>
     </widget>
+    <widget class="QLabel" name="label_aul_color">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>23</y>
+       <width>161</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(216, 83, 25, 100);
+background-color: rgb(231, 179, 156, 150);
+background-color: rgba(221, 117, 72, 140);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <zorder>label_aul_color</zorder>
+    <zorder>frame_aul</zorder>
+    <zorder>checkBox_aul</zorder>
    </widget>
    <widget class="QLabel" name="label_t_run">
     <property name="enabled">
@@ -1158,8 +1236,8 @@ border-color: rgb(196, 193, 189);</string>
     </property>
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>430</y>
+      <x>100</x>
+      <y>517</y>
       <width>51</width>
       <height>25</height>
      </rect>
@@ -1196,8 +1274,8 @@ border-color: rgb(196, 193, 189);</string>
    <widget class="QLabel" name="label_21">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>433</y>
+      <x>160</x>
+      <y>520</y>
       <width>41</width>
       <height>20</height>
      </rect>
@@ -1220,13 +1298,214 @@ border-color: rgb(196, 193, 189);</string>
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
    </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>14</x>
+      <y>50</y>
+      <width>471</width>
+      <height>451</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>img/anterior.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_2">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>30</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(0, 114, 189);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_3">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>450</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(119, 172, 48);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_5">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>170</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(216, 83, 25);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_6">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>310</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(236, 177, 32);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_7">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>310</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(236, 177, 32, 200);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_8">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>450</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(119, 172, 48, 200);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_9">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>170</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(216, 83, 25, 200);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_10">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>30</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(0, 114, 189, 200);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_11">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>590</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(236, 177, 32, 100);
+background-color: rgb(170, 170, 255, 150);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_12">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>590</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(144, 144, 216);
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <zorder>label_2</zorder>
+   <zorder>label</zorder>
+   <zorder>pushButton_on</zorder>
+   <zorder>label_9</zorder>
+   <zorder>groupBox_alr</zorder>
+   <zorder>groupBox_aur</zorder>
+   <zorder>groupBox_all</zorder>
+   <zorder>groupBox_aul</zorder>
+   <zorder>label_t_run</zorder>
+   <zorder>label_21</zorder>
+   <zorder>label_alr_color_2</zorder>
+   <zorder>label_alr_color_3</zorder>
+   <zorder>label_alr_color_5</zorder>
+   <zorder>label_alr_color_6</zorder>
+   <zorder>label_alr_color_7</zorder>
+   <zorder>label_alr_color_8</zorder>
+   <zorder>label_alr_color_9</zorder>
+   <zorder>label_alr_color_10</zorder>
+   <zorder>label_alr_color_11</zorder>
+   <zorder>label_alr_color_12</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>412</width>
+     <width>505</width>
      <height>21</height>
     </rect>
    </property>
