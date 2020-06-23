@@ -8,7 +8,7 @@ class PressureChamber:
 		self.form = form
 		self.groupbox = getattr(form, 'groupBox_' + chamber_name)
 		self.frame = getattr(form, 'frame_' + chamber_name)
-		self.checkbox = getattr(form, 'checkBox_' + chamber_name)
+		# self.checkbox = getattr(form, 'checkBox_' + chamber_name)
 		self.spinbox = getattr(form, 'doubleSpinBox_' + chamber_name)
 		self.slider = getattr(form, 'horizontalSlider_' + chamber_name)
 		self.label = getattr(form, 'label_' + chamber_name)
@@ -77,4 +77,9 @@ class PressureChamber:
 
 	def updateMeasurementDisplay(self):
 		# ~ print(self.pres_meas)
-		self.label.setText(str(round(self.pres_meas,1)))
+		pres_round = round(self.pres_meas,1)
+		if pres_round >= 0:
+			self.label.setText(abs(pres_round))
+		else:
+			self.label.setText(str(pres_round))
+
