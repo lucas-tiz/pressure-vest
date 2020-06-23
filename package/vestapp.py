@@ -10,7 +10,7 @@ from PyQt5 import QtGui, QtCore
 
 from package.chamber import PressureChamber
 from package.ui	import mainwindow
-from package import adc
+# from package import adc
 # from package.pca9685_driver import Device
 from package import plotter
 
@@ -21,7 +21,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 	signal_stop_idle = QtCore.pyqtSignal()
 	signal_stop_run = QtCore.pyqtSignal()
 
-	def __init__(self, chamber_info, plot=False):
+	def __init__(self, chamber_info, plot=False, debug_gui=False):
 		super(self.__class__, self).__init__()
 		self.setupUi(self)
 		self.setWindowTitle("Pressure Vest Controller")
@@ -43,8 +43,11 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		self.pushButton_on.clicked.connect(lambda: self.switchSystemState())
 
 		# instantiate ADC
-		last_channel = 3 #TODO: set last_channel
-		self.adc = adc.Adc(0, 0, last_channel) 
+		self.debug_gui = debug_gui
+		if not debug_gui:
+			from package import adc
+			last_channel = 3 #TODO: set last_channel
+			self.adc = adc.Adc(0, 0, last_channel) 
 
 		# instantiate PWM
 		# self.pwm = Device(0x40) # instantiate PCA9685 #TODO: uncomment
@@ -141,8 +144,14 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 	def sensorUpdate(self, t):
 		# Read/convert pressures from ADC & update pressure of each chamber object
-		data = self.adc.readAll() # read pressures #TODO: uncomment
-		# ~ pressures = np.sin(t + np.array([0,0.25,0.5,0.75])*np.pi) + 2.5 #DEBUG
+		if not self.debug_gui:
+			data = self.adc.readAll() # read pressures #TODO: uncomment
+		else: # for debugging
+			data = []
+			for idx in range(0,self.n_chambers+1):
+				counts = np.sin(t + idx*0.25*np.pi)*1000 # + 2047
+				data.append([idx,counts])
+			# pressures = np.sin(t + np.array([0,0.25,0.5,0.75])*np.pi) + 2.5 #DEBUG
 
 		for chamber in self.chambers.values(): # update chamber pressures
 			idx_adc = chamber['adc'] # ADC index of pressure chamber
