@@ -13,11 +13,15 @@ if __name__ == "__main__":
 
 	app = QApplication(sys.argv)
 
-	if "plot" in sys.argv[1:]:
-		form = vestapp.VestController(chamber_info, plot=True)
-	else:
-		form = vestapp.VestController(chamber_info)
 
+	plot = False
+	debug_gui = False
+	if "plot" in sys.argv[1:]:
+		plot = True
+	if "debug_gui" in sys.argv[1:]:
+		debug_gui = True
+
+	form = vestapp.VestController(chamber_info, plot=plot, debug_gui=debug_gui)
 	form.show()
 
 
