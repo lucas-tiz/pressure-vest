@@ -3,8 +3,18 @@ import time
 
 if __name__=="__main__":
 	dev = Device(0x40)
-	dev.set_pwm_frequency(25) # (24- Hz)
-	dev.set_pwm(0, 2047) # (0-4095 counts)
+	dev.set_pwm_frequency(45) # (24- Hz)
+	dev.set_pwm(0, 2047)
+	dev.set_pwm(1, 2047)
+	dev.set_pwm(2, 2047)
+	dev.set_pwm(3, 2047)
+	# ~ dev.set_pwm(12, 2047) # (0-4095 counts)
+	# ~ dev.set_pwm(1, 2047) # (0-4095 counts)
+	# ~ dev.set_pwm(2, 2047) # (0-4095 counts)
+	# ~ dev.set_pwm(3, 2047) # (0-4095 counts)
+
+	# ~ time.sleep(3)
+	# ~ dev.set_pwm(0, 0)
 	
 	while True:
 		# ~ dev.set_pwm(0, 0)
