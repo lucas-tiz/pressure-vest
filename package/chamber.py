@@ -79,7 +79,7 @@ class PressureChamber:
 		# ~ print(self.pres_meas)
 		pres_round = round(self.pres_meas,1)
 		if pres_round >= 0:
-			self.label.setText(abs(pres_round))
+			self.label.setText(str(abs(pres_round)))
 		else:
 			self.label.setText(str(pres_round))
 
