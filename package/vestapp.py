@@ -46,8 +46,18 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		self.debug_gui = debug_gui
 		if not debug_gui:
 			from package import adc
-			last_channel = 3 #TODO: set last_channel
+			last_channel = 7 #TODO: set last_channel
 			self.adc = adc.Adc(0, 0, last_channel) 
+			
+			import RPi.GPIO as GPIO
+			self.GPIO = GPIO
+			self.GPIO.setmode(self.GPIO.BCM)
+			self.pin_pump1 = 6
+			self.pin_pump2 = 5
+			self.GPIO.setup(self.pin_pump1, self.GPIO.OUT)
+			self.GPIO.setup(self.pin_pump2, self.GPIO.OUT)
+			self.GPIO.output(self.pin_pump1, self.GPIO.LOW)
+			self.GPIO.output(self.pin_pump2, self.GPIO.LOW)
 
 		# instantiate PWM
 		# self.pwm = Device(0x40) # instantiate PCA9685 #TODO: uncomment
@@ -116,6 +126,8 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 	def run(self):
 		self.run_on = True
+		self.GPIO.output(self.pin_pump1, self.GPIO.HIGH) #DEBUG
+		self.GPIO.output(self.pin_pump2, self.GPIO.HIGH) #DEBUG
 		self.pushButton_on.setText('Stop')
 		self.pushButton_on.setStyleSheet("background-color: rgb(235, 64, 52);\n")
 		print('running...') #DEBUG
@@ -125,6 +137,8 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 	def stop(self):
 		self.run_on = False
+		self.GPIO.output(self.pin_pump1, self.GPIO.LOW) #DEBUG
+		self.GPIO.output(self.pin_pump2, self.GPIO.LOW) #DEBUG
 		self.pushButton_on.setText('Run')
 		self.pushButton_on.setStyleSheet("background-color: rgb(0, 170, 0);\n")
 		print('stopped!') #DEBUG
@@ -146,6 +160,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		# Read/convert pressures from ADC & update pressure of each chamber object
 		if not self.debug_gui:
 			data = self.adc.readAll() # read pressures #TODO: uncomment
+			# ~ print(data)
 		else: # for debugging
 			data = []
 			for idx in range(0,self.n_chambers+1):
@@ -217,6 +232,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		if self.run_on is True:
 			self.stop() # stop run thread if running
 		self.signal_stop_idle.emit() # stop idle thread
+		self.GPIO.cleanup()
 		print('closing') #
 		event.accept()
 
