@@ -1,0 +1,18 @@
+freq:
+  sense: 5
+  display: 10.0
+  control: 1
+  log: 0.1
+  pwm: 45.0
+control:
+  noise_threshold: 0.05
+  differential_gap: 0.05
+  windup_limit: 50
+  inflation:
+    kp: 0.3
+    ki: 0.2
+    kd: 0.0
+  deflation:
+    kp: 0.0
+    ki: 0.4
+    kd: 0.0

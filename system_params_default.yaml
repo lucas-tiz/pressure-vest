@@ -1,0 +1,20 @@
+freq:
+    sense: 5 # (Hz)
+    display: 5 # (Hz)
+    control: 1 # (Hz)
+    log: 1 # (Hz)
+    pwm: 45 # (Hz)
+control:
+    noise_threshold: 0.05 # (psi) sensor noise limit above 0 psi TODO
+    differential_gap: 0.05 # (psi) +/- range around setpoint at which control is turned off
+    windup_limit: 50 # (duty cycle) integral windup limit
+    inflation:
+        kp: 0.0 # proportional gain
+        ki: 0.0 # integral gain
+        kd: 0.0 # derivative gain
+    deflation:
+        kp: 0.0 # proportional gain
+        ki: 0.0 # integral gain
+        kd: 0.0 # derivative gain
+        
+        
