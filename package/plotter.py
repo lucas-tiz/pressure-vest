@@ -5,7 +5,7 @@
 # import time
 
 
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QWidget
 from PyQt5 import QtCore
 
 from pyqtgraph import PlotWidget
@@ -16,7 +16,7 @@ from package.ui	import plotwindow
 
 
 ############################################################
-class PlotWindow(QMainWindow, plotwindow.Ui_MainWindow):
+class PlotWindow(QWidget, plotwindow.Ui_Form):
 
 	signal_plotter_closed = QtCore.pyqtSignal()
 
