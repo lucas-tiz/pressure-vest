@@ -145,8 +145,8 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 	def run(self):
 		self.run_on = True
-		# self.GPIO.output(self.pin_pump1, self.GPIO.HIGH) #DEBUG
-		# self.GPIO.output(self.pin_pump2, self.GPIO.HIGH) #DEBUG
+		self.GPIO.output(self.pin_pump1, self.GPIO.HIGH) #DEBUG
+		self.GPIO.output(self.pin_pump2, self.GPIO.HIGH) #DEBUG
 		self.pushButton_on.setText('Stop')
 		self.pushButton_on.setStyleSheet("background-color: rgb(235, 64, 52);\n")
 		print('running...') #DEBUG
@@ -156,8 +156,8 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 	def stop(self):
 		self.run_on = False
-		# self.GPIO.output(self.pin_pump1, self.GPIO.LOW) #DEBUG
-		# self.GPIO.output(self.pin_pump2, self.GPIO.LOW) #DEBUG
+		self.GPIO.output(self.pin_pump1, self.GPIO.LOW) #DEBUG
+		self.GPIO.output(self.pin_pump2, self.GPIO.LOW) #DEBUG
 		self.pushButton_on.setText('Run')
 		self.pushButton_on.setStyleSheet("background-color: rgb(0, 170, 0);\n")
 		print('stopped!') #DEBUG
@@ -216,9 +216,9 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 			dutys = [0]*self.n_chambers #TODO: some duties should be 100 to vent chambers
 			
 		# print(t, dutys) #DEBUG
-		if not self.debug_gui:
-			for idx, duty in enumerate(dutys):
-				self.pwm.set_pwm(idx, duty) # update duty cycles
+		# ~ if not self.debug_gui:
+			# ~ for idx, duty in enumerate(dutys):
+				# ~ self.pwm.set_pwm(idx, duty) # update duty cycles
 
 
 	def systemDisplayUpdate(self,t):
@@ -355,7 +355,7 @@ class IdleThread(QtCore.QThread):
 			t = t_now() - t_start
 			if t >= (t_display + 1/self.display_freq):
 				self.signal_display.emit(t)
-				print('display: ', t-t_display) #DEBUG
+				# print('display: ', t-t_display) #DEBUG
 				t_display = t # update display time
 				
 
@@ -404,7 +404,7 @@ class RunThread(QtCore.QThread):
 			t = t_now() - t_start
 			if t >= (t_log + 1/self.log_freq):
 				self.signal_log.emit(t) # emit log update signal
-				print('log: ', t-t_log) #DEBUG
+				# print('log: ', t-t_log) #DEBUG
 				t_log = t # update log time
 
 
