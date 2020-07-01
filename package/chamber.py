@@ -2,7 +2,7 @@
 from numpy import sign
 
 class PressureChamber:
-	# Manage interaction between GUI signals & pressure control
+	''' Manage interaction between GUI signals & pressure control '''
 	def __init__(self, form, chamber_name):
 		# GUI objects
 		self.form = form
@@ -26,11 +26,11 @@ class PressureChamber:
 		self.pres_set = 0 # initialize pressure setpoint
 		self.err_int = 0 # initialize integral error
 		self.err_prev = 0 # initialize previous error
-		self.duty = {'inflation':0, 'deflation':0} #DEBUG
+		self.duty = {'inflate':0, 'deflate':0} #DEBUG
 
 
 	def enableChamber(self):
-		# Enable or disable pressure chamber
+		''' Enable or disable pressure chamber '''
 		if self.groupbox.isChecked() == 1:
 			self.enabled = True # enable controller
 			self.pres_set = self.spinbox.value() # setpoint to GUI value
@@ -40,8 +40,7 @@ class PressureChamber:
 
 
 	def updateSetpoint(self, n):
-		# Update chamber pressure setpoint
-
+		''' Update chamber pressure setpoint '''
 		# update GUI
 		self.spinbox.blockSignals(True)
 		self.slider.blockSignals(True)
@@ -68,33 +67,33 @@ class PressureChamber:
 		self.pres_meas = pressure
 
 
-	def calcControl(self, control):
+	def calcControl(self, param):
 		err = self.pres_meas - self.pres_set # (psi) pressure error
 
 		if self.pres_set == 0: # if setpoint is zero
-			if err > control['noise_threshold']: # and not within sensor noise range
-				self.duty['inflation'] = 0 # fully close inflation valve
-				self.duty['deflation'] = 100 # fully open vent valve
+			if err > param['noise_threshold']: # and not within sensor noise range
+				self.duty['inflate'] = 0 # fully close inflate valve
+				self.duty['deflate'] = 0 # fully open deflate valve
 			else: # if within sensor noise range
-				self.duty['inflation'] = 0 # fully close inflation valve
-				self.duty['deflation'] = 0 # fully close vent valve
+				self.duty['inflate'] = 0 # fully close inflate valve
+				self.duty['deflate'] = 100 # fully close deflate valve
 			self.err_int = 0 # reset integral
 
-		elif (abs(err) <= control['differential_gap']): # if nonzero setpoint, but within differential gap
-			self.duty['inflation'] = 0 # fully close inflation valve
-			self.duty['deflation'] = 0 # fully close vent valve
+		elif (abs(err) <= param['differential_gap']): # if nonzero setpoint, but within differential gap
+			self.duty['inflate'] = 0 # fully close inflate valve
+			self.duty['deflate'] = 100 # fully close deflate valve
 			self.err_int = 0 # reset integral
 
 		else: # if nonzero setpoint, out of differential gap
 			if err < 0: # if below setpoint
-				mode = 'inflation'
-				self.duty['deflation'] = 0 # close deflation valve
+				mode = 'inflate'
+				self.duty['deflate'] = 100 # close deflate valve
 			else: # if above setpoint
-				mode = 'deflation'
-				self.duty['inflation'] = 0 # close inflation valve
-			kp = control[mode]['kp']
-			ki = control[mode]['ki']
-			kd = control[mode]['kd']
+				mode = 'deflate'
+				self.duty['inflate'] = 0 # close inflate valve
+			kp = param[mode]['kp']
+			ki = param[mode]['ki']
+			kd = param[mode]['kd']
 
 			# calculate control variables
 			self.err_int = self.err_int + err
@@ -102,14 +101,19 @@ class PressureChamber:
 			self.err_prev = err 
 
 			# reset integral windup
-			if (self.err_int*ki > control['windup_limit']):
-				self.err_int = control['windup_limit']/ki
-			elif (self.err_int*ki < -control['windup_limit']):
-				self.err_int = -control['windup_limit']/ki
+			if (self.err_int*ki > param['windup_limit']):
+				self.err_int = param['windup_limit']/ki
+			elif (self.err_int*ki < -param['windup_limit']):
+				self.err_int = -param['windup_limit']/ki
 
-			# calculate control & impose saturation limits
-			u = control['deadzone'] + (kp*err + ki*self.err_int + kd*err_der)*sign(err)
-			self.duty[mode] = min(u, 100)
+			# calculate control
+			u = -(kp*err + ki*self.err_int + kd*err_der) # feedback control
+			if mode is 'inflate': # add deadzone compensation
+				u = param['deadzone'] + u 
+			else: # (mode is deflate)
+				u = (100 - param['deadzone']) + u
+			u = u*(4095/100) # scale to 12-bit
+			self.duty[mode] = max(0, min(u, 4095)) # impose saturation limits
 
 		return self.duty
 
