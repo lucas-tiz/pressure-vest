@@ -15,9 +15,8 @@ import numpy as np
 from package.ui	import plotwindow
 
 
-############################################################
 class PlotWindow(QWidget, plotwindow.Ui_Form):
-
+	''' GUI window for plotting pressures, etc. '''
 	signal_plotter_closed = QtCore.pyqtSignal()
 
 	def __init__(self, chambers, buffer_len, signal_stop_plot):
@@ -50,6 +49,7 @@ class PlotWindow(QWidget, plotwindow.Ui_Form):
 
 
 	def updateDisplay(self, t):
+		''' Update plot lines '''
 		for name, chamber in self.chambers.items():
 			x = self.lines[name].xData
 			y = self.lines[name].yData 
@@ -61,12 +61,14 @@ class PlotWindow(QWidget, plotwindow.Ui_Form):
 
 
 	def clearDisplay(self):
+		''' Clear plot lines '''
 		buffer = [0]*self.buffer_len
 		for line in self.lines.values():
 			line.setData(buffer,buffer)
 
 
 	def closeEvent(self, event):
+		''' Clear display and emit signal to stop plotting thread '''
 		self.clearDisplay()
 		self.signal_stop_plot.emit()
 		print('close plotter')

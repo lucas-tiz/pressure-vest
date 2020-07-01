@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-# import sys
-# import numpy as np
-# import datetime
-# import time
 import yaml
 
 from PyQt5.QtWidgets import QWidget, QDoubleSpinBox
@@ -11,20 +7,14 @@ from PyQt5 import QtCore
 from package.ui	import tunewindow
 
 
-############################################################
 class TuneWindow(QWidget, tunewindow.Ui_Form):
-
+	''' GUI window for tuning system/control parameters '''
 	signal_plotter_closed = QtCore.pyqtSignal()
 
 	def __init__(self, form): #, signal_stop_plot):
 		super(self.__class__, self).__init__()
 		self.setupUi(self)
-
-
-		# self.signal_stop_plot = signal_stop_plot
-
 		self.system_params = form.system_params
-
 
 		# set up spinboxes
 		def getDictVal(d, keys):
@@ -51,6 +41,7 @@ class TuneWindow(QWidget, tunewindow.Ui_Form):
 
 
 	def updateValue(self):
+		''' Update system parameter value from GUI '''
 		def setDictEntry(d, keys, val):
 			n = len(keys)
 			if n == 1:
@@ -64,5 +55,6 @@ class TuneWindow(QWidget, tunewindow.Ui_Form):
 
 
 	def saveParams(self):
+		''' Save system parameters to .yaml file'''
 		with open('system_params.yaml', 'w') as f:
 			yaml.dump(self.system_params, f, default_flow_style=False, sort_keys=False)
