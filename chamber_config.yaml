@@ -1,0 +1,40 @@
+aur:
+    adc: 0
+    pwm: 
+        inflate: 0
+        deflate: 8
+aul:
+    adc: 1
+    pwm: 
+        inflate: 1
+        deflate: 9
+alr:
+    adc: 2
+    pwm: 
+        inflate: 2
+        deflate: 10 
+all:
+    adc: 3
+    pwm: 
+        inflate: 3
+        deflate: 11
+# pur:
+#     adc: 4
+#     pwm: 
+#         inflate: 4
+#         deflate: 12
+# pul:
+#     adc: 5
+#     pwm: 
+#         inflate: 5
+#         deflate: 13
+# plr:
+#     adc: 6
+#     pwm: 
+#         inflate: 6
+#         deflate: 14
+# pll:
+#     adc: 7
+#     pwm: 
+#         inflate: 7
+#         deflate: 15
