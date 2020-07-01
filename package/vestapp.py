@@ -14,12 +14,12 @@ from package.ui	import mainwindow
 
 
 class VestController(QMainWindow, mainwindow.Ui_MainWindow):
-
+	''' Software controller for managing GUI signals, threads, etc. '''
 	signal_stop_plot = QtCore.pyqtSignal()
 	signal_stop_idle = QtCore.pyqtSignal()
 	signal_stop_run = QtCore.pyqtSignal()
 
-	def __init__(self, chamber_info, plot=False, debug_gui=False, tune=False):
+	def __init__(self, chamber_config, plot=False, debug_gui=False, tune=False):
 		super(self.__class__, self).__init__()
 		self.setupUi(self)
 		self.setWindowTitle("Pressure Vest Controller")
@@ -32,23 +32,22 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		with open('system_params.yaml') as f: 
 			self.system_params = yaml.load(f, Loader=yaml.FullLoader)
 
-		
-
-		# self.system_params['freq']['sense'] = 5 # (Hz) TODO: set value, make external
-		# self.system_params['freq']['display'] = 1 # (Hz) TODO: set value, make external
-		# self.system_params['freq']['control'] = 1 # (Hz) TODO: set value, make external
-		# self.system_params['freq']['log'] = 1 # (Hz) TODO: set value, make external
-		# self.system_params['freq']['pwm'] = 45 # (Hz) TODO: set value, make external
-
 		# system signals & slots
 		self.pushButton_on.clicked.connect(lambda: self.switchSystemState())
+
+		# instantiate chambers
+		self.pressure_accum = 0
+		self.n_chambers = len(chamber_config)
+		self.pressures = [0]*self.n_chambers # chamber pressures
+		self.chambers = chamber_config # dict of chambers
+		for key, chamber in self.chambers.items():
+			chamber['obj'] = PressureChamber(self, key) # instantiate PressureChamber for each chamber
 
 		# configure ADC, GPIO, and PWM
 		self.debug_gui = debug_gui
 		if not debug_gui:
-			from package import adc
-			last_channel = 7 #TODO: set last_channel
-			self.adc = adc.Adc(0, 0, last_channel) 
+			from package import adc # ADC driver class
+			self.adc = adc.Adc(0, 0, self.n_chambers+1) # add 1 for accumulator pressure 
 			
 			import RPi.GPIO as GPIO
 			self.GPIO = GPIO
@@ -60,20 +59,10 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 			self.GPIO.output(self.pin_pump1, self.GPIO.LOW)
 			self.GPIO.output(self.pin_pump2, self.GPIO.LOW)
 
-			# instantiate PWM
-			# from package.pca9685_driver import Device
-			# self.pwm = Device(0x40) # instantiate PCA9685 #TODO: uncomment
-			# self.pwm.set_pwm_frequency(self.system_params['freq']['pwm']) # (Hz)
-			#TODO: ensure that initial PWM duties are 0
-
-		# instantiate chambers
-		# ~ self.chamber_info = chamber_info
-		self.n_chambers = len(chamber_info)
-		self.pressures = [0]*self.n_chambers # chamber pressures
-		self.chambers = chamber_info # dict of chambers
-		for key, chamber in self.chambers.items():
-			chamber['obj'] = PressureChamber(self, key) # instantiate PressureChamber for each chamber
-	
+			from package.pca9685_driver import Device # PWM driver class
+			self.pwm = Device(0x40) # instantiate PCA9685
+			self.pwm.set_pwm_frequency(self.system_params['freq']['pwm']) # (Hz) TODO: ensure that initial PWM duties are 0
+			
 		# set up sensor idle thread
 		self.thread_idle = IdleThread(self.system_params['freq']['sense'], 
 			self.system_params['freq']['display']) # instantiate thread object
@@ -104,7 +93,8 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 			action_plot.setShortcut("Ctrl+P")
 			action_plot.setStatusTip('Plot chamber pressure data')
 			action_plot.triggered.connect(self.showPlotter)
-			self.menu_file = self.menuBar.addMenu('&File')
+
+			if not hasattr(self, 'menu_file'): self.menu_file = self.menuBar.addMenu('&File')
 			self.menu_file.addAction(action_plot)
 
 		# set up control tuning window if on
@@ -118,7 +108,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 			action_tune.setShortcut("Ctrl+T")
 			action_tune.setStatusTip('Tune pressure controller parameters')
 			action_tune.triggered.connect(self.tune_window.show)
-			self.menu_file = self.menuBar.addMenu('&File')
+			if not hasattr(self, 'menu_file'): self.menu_file = self.menuBar.addMenu('&File')
 			self.menu_file.addAction(action_tune)
 
 
@@ -145,8 +135,8 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 	def run(self):
 		self.run_on = True
-		self.GPIO.output(self.pin_pump1, self.GPIO.HIGH) #DEBUG
-		self.GPIO.output(self.pin_pump2, self.GPIO.HIGH) #DEBUG
+		# self.GPIO.output(self.pin_pump1, self.GPIO.HIGH) #DEBUG
+		# self.GPIO.output(self.pin_pump2, self.GPIO.HIGH) #DEBUG
 		self.pushButton_on.setText('Stop')
 		self.pushButton_on.setStyleSheet("background-color: rgb(235, 64, 52);\n")
 		print('running...') #DEBUG
@@ -156,8 +146,8 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 	def stop(self):
 		self.run_on = False
-		self.GPIO.output(self.pin_pump1, self.GPIO.LOW) #DEBUG
-		self.GPIO.output(self.pin_pump2, self.GPIO.LOW) #DEBUG
+		# self.GPIO.output(self.pin_pump1, self.GPIO.LOW) #DEBUG
+		# self.GPIO.output(self.pin_pump2, self.GPIO.LOW) #DEBUG
 		self.pushButton_on.setText('Run')
 		self.pushButton_on.setStyleSheet("background-color: rgb(0, 170, 0);\n")
 		print('stopped!') #DEBUG
@@ -168,7 +158,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		
 
 	def initLog(self):
-		# Initialize data array for logging pressure data
+		''' Initialize data array for logging pressure data '''
 		max_samples = round(self.system_params['freq']['log']*60*60) # allocate 1 hour
 		self.data = np.zeros((max_samples,self.n_chambers+1), dtype=float) # allocate data array 
 		self.n_samples = 0 # initialize number of data samples recorded
@@ -176,16 +166,14 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 
 	def sensorUpdate(self, t):
-		# Read/convert pressures from ADC & update pressure of each chamber object
+		''' Read/convert pressures from ADC & update pressure of each chamber object '''
 		if not self.debug_gui:
-			data = self.adc.readAll() # read pressures #TODO: uncomment
-			# ~ print(data)
-		else: # for debugging
+			data = self.adc.readAll() # read pressures
+		else: #DEBUG
 			data = []
 			for idx in range(0,self.n_chambers+1):
 				counts = np.sin(t + idx*0.25*np.pi)*1000 # + 2047
 				data.append([idx,counts])
-			# pressures = np.sin(t + np.array([0,0.25,0.5,0.75])*np.pi) + 2.5 #DEBUG
 
 		for chamber in self.chambers.values(): # update chamber pressures
 			idx_adc = chamber['adc'] # ADC index of pressure chamber
@@ -196,9 +184,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 			chamber['obj'].updateMeasurement(pressure) # update chamber measurement
 			self.pressures[idx_adc] = pressure # update pressures in class (in order of ADC)
 			
-			# ~ idx_adc = self.chamber_info[name]['adc'] # ADC index of pressure chamber
-			# ~ chamber.updateMeasurement(pressures[idx_adc]) # update chamber measurement
-			# ~ self.pressures[idx_adc] = pressures[idx_adc] # update pressures in class (in order of ADC)
+		self.pressure_accum = data[-1] # update accumulator pressure
 
 
 	def sensorDisplayUpdate(self,t):
@@ -207,26 +193,34 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 
 	def controlUpdate(self, t=None, vent=False):
-		if not vent: # if vent is False
-			dutys = [0]*self.n_chambers 
-			for chamber in self.chambers.values(): # calculate duty cycles
-				idx_pwm = chamber['pwm']
-				dutys[idx_pwm] = chamber['obj'].calcControl(self.system_params['control'])
-		else:
-			dutys = [0]*self.n_chambers #TODO: some duties should be 100 to vent chambers
-			
+		''' Calculate chamber control inputs & update PWM board, turn on/off pumps '''
+		dutys = [0]*self.n_chambers*2
+		for chamber in self.chambers.values(): # calculate duty cycles
+			duty = chamber['obj'].calcControl(self.system_params['chamber']) # calculate chamber control
+			dutys[chamber['pwm']['inflate']] = duty['inflate']*(not vent) # 0 if vent
+			dutys[chamber['pwm']['deflate']] = duty['deflate']*(not vent) + 4095*vent # 4095 if vent	
 		# print(t, dutys) #DEBUG
-		# ~ if not self.debug_gui:
-			# ~ for idx, duty in enumerate(dutys):
-				# ~ self.pwm.set_pwm(idx, duty) # update duty cycles
+		
+		if not self.debug_gui:
+			for idx, duty in enumerate(dutys):
+				self.pwm.set_pwm(idx, duty) # update duty cycles on PWM board
+
+		if self.pressure_accum < (self.system_params['accum']['setpoint'] 
+			- self.system_params['accum']['differential_gap']):
+			self.GPIO.output(self.pin_pump1, self.GPIO.HIGH) # turn on pump 1
+			self.GPIO.output(self.pin_pump2, self.GPIO.HIGH) # turn on pump 2
+		else: 
+			self.GPIO.output(self.pin_pump1, self.GPIO.LOW) # turn off pump 1
+			self.GPIO.output(self.pin_pump2, self.GPIO.LOW) # turn off pump 2
 
 
 	def systemDisplayUpdate(self,t):
+		''' Update system display '''
 		self.label_t_run.setText(str(round(t/60,1))) # (min) update run time
 
 
 	def logUpdate(self,t):
-		# Log data into array
+		''' Log data into array '''
 		self.data[self.n_samples,0] = t # record time
 		self.data[self.n_samples,1:] = self.pressures # record pressures
 		self.n_samples = self.n_samples + 1 # update number of samples
@@ -292,7 +286,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 ############################################################
 class PlotThread(QtCore.QThread):
-	# When running: update plots
+	''' When running: update plots '''
 	signal_plot = QtCore.pyqtSignal(float)
 
 	def __init__(self, plot_window, plot_freq):
@@ -323,7 +317,7 @@ class PlotThread(QtCore.QThread):
 
 ############################################################
 class IdleThread(QtCore.QThread):
-	# While app is running: sense pressures & update pressure displays
+	''' While app is running: sense pressures & update pressure displays '''
 	signal_sense = QtCore.pyqtSignal(float)
 	signal_display = QtCore.pyqtSignal(float)
 
@@ -339,7 +333,7 @@ class IdleThread(QtCore.QThread):
 
 
 	def run(self):
-		# Loop: sense pressures & update pressure displays
+		''' Loop: sense pressures & update pressure displays '''
 		self.running = True
 		t_sensor = 0.0
 		t_display = 0.0
@@ -363,7 +357,7 @@ class IdleThread(QtCore.QThread):
 
 ############################################################
 class RunThread(QtCore.QThread):
-	# When running: update control, log data, & update system display
+	''' When running: update control, log data, & update system display '''
 	signal_control = QtCore.pyqtSignal(float)
 	signal_display = QtCore.pyqtSignal(float)
 	signal_log = QtCore.pyqtSignal(float)
@@ -381,7 +375,7 @@ class RunThread(QtCore.QThread):
 
 
 	def run(self):
-		# Loop: update control, system display, & log
+		''' Loop: update control, system display, & log '''
 		self.running = True
 		t_control = 0.0
 		t_display = 0.0
@@ -413,7 +407,6 @@ class RunThread(QtCore.QThread):
 
 
 # value limit reminders
-# killswitch interface for valves/pump --> talk to Drew
 
 # nice to have
 # 	status of killswitch
