@@ -901,6 +901,7 @@ class Ui_MainWindow(object):
 "background-color: rgb(231, 179, 156, 150);\n"
 "background-color: rgba(221, 117, 72, 140);\n"
 "background-color: rgb(250, 231, 81, 150);\n"
+"background-color: rgb(220, 52, 50, 125);\n"
 "border-radius: 10px;")
         self.label_color_pul.setText("")
         self.label_color_pul.setObjectName("label_color_pul")
