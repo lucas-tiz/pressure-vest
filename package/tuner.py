@@ -14,6 +14,7 @@ class TuneWindow(QWidget, tunewindow.Ui_Form):
 	def __init__(self, form): #, signal_stop_plot):
 		super(self.__class__, self).__init__()
 		self.setupUi(self)
+		self.setWindowTitle("System Parameter Tuner")
 		self.system_params = form.system_params
 
 		# set up spinboxes
