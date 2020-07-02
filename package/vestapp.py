@@ -49,7 +49,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 			from package import adc # ADC driver class
 			self.adc = adc.Adc(0, 0, self.n_chambers) # 1 extra for accumulator pressure 
 			
-			import RPi.GPIO as GPIO
+			import RPi.GPIO as GPIO			
 			self.GPIO = GPIO
 			self.GPIO.setmode(self.GPIO.BCM)
 			self.pin_pump1 = 6
@@ -74,7 +74,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		# set up control/log run thread		
 		self.thread_run = RunThread(self.system_params['freq']['control'], 
 			self.system_params['freq']['display'], self.system_params['freq']['log'])
-		self.signal_stop_run.connect(self.thread_run.stop) # set up signal to stop thread
+		# ~ self.signal_stop_run.connect(self.thread_run.stop) # set up signal to stop thread
 		self.thread_run.signal_control.connect(self.controlUpdate)
 		self.thread_run.signal_display.connect(self.systemDisplayUpdate)
 		self.thread_run.signal_log.connect(self.logUpdate)
@@ -136,8 +136,6 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 	def run(self):
 		self.run_on = True
-		# self.GPIO.output(self.pin_pump1, self.GPIO.HIGH) #DEBUG
-		# self.GPIO.output(self.pin_pump2, self.GPIO.HIGH) #DEBUG
 		self.pushButton_on.setStyleSheet("background-color: rgb(235, 64, 52);\n")		
 		self.pushButton_on.setText('Stop')
 		self.statusBar.showMessage('Running...')
@@ -148,15 +146,15 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 	def stop(self):
 		self.run_on = False
-		# self.GPIO.output(self.pin_pump1, self.GPIO.LOW) #DEBUG
-		# self.GPIO.output(self.pin_pump2, self.GPIO.LOW) #DEBUG
-		# self.pushButton_on.setStyleSheet("background-color: rgb(0, 170, 0);\n")
+		# ~ self.signal_stop_run.emit() # emit run stop signal
+		self.thread_run.stop()
+		while not self.thread_run.isFinished(): continue # wait until finished
+		print('stopped!') #DEBUG
+		self.controlUpdate(vent=True) # turn off all
+				
 		self.pushButton_on.setStyleSheet("background-color: rgb(225, 225, 225);\n")
 		self.pushButton_on.setText('Run')
 		self.statusBar.showMessage('Stopped.', 2000)
-		print('stopped!') #DEBUG
-		self.signal_stop_run.emit() # emit run stop signal
-		self.controlUpdate(vent=True) # turn off all
 		# print(self.data[0:10,:]) #DEBUG
 		self.saveLog()
 		
@@ -190,8 +188,11 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 			
 		counts = data[-1][1]
 		self.pressure_accum = (counts*(5.0/4095.0) - 0.10*Vs)*(5.0/(0.8*Vs))  # update accumulator pressure
-		# ~ print(self.pressure_accum) #DEBUG
-		
+		print('accum pres', self.pressure_accum) #DEBUG
+		# ~ print('setpoint', self.system_params['accum']['setpoint'])
+		# ~ print('set-gap', self.system_params['accum']['setpoint'] 
+				# ~ - self.system_params['accum']['differential_gap'])
+
 
 	def sensorDisplayUpdate(self,t):
 		for chamber in self.chambers.values(): # update chamber pressures
@@ -203,19 +204,29 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		dutys = [0]*self.n_chambers*2
 		for chamber in self.chambers.values(): # calculate duty cycles
 			duty = chamber['obj'].calcControl(self.system_params['chamber']) # calculate chamber control
-			dutys[chamber['pwm']['inflate']] = duty['inflate']*(not vent) # 0 if vent
-			dutys[chamber['pwm']['deflate']] = duty['deflate']*(not vent) + 4095*vent # 4095 if vent	
-		# print(t, dutys) #DEBUG
+			dutys[chamber['pwm']['inflate']] = duty['inflate']*(not vent)*self.run_on # 0 if vent
+			dutys[chamber['pwm']['deflate']] = duty['deflate']*(not vent)*self.run_on # 0 if vent	
 		
+		print('duty', dutys[0], dutys[8]) #DEBUG
+		# print(t, dutys) #DEBUG
+				
+		# ~ t0 = time.time()
 		if not self.debug_gui:
 			for idx, duty in enumerate(dutys):
 				self.pwm.set_pwm(idx, duty) # update duty cycles on PWM board
+				# ~ print(type(idx), type(duty))
+				continue
 
-			if self.pressure_accum < (self.system_params['accum']['setpoint'] 
-				- self.system_params['accum']['differential_gap']):
+			# ~ print('dt', time.time()-t0)
+
+
+			if (self.pressure_accum < (self.system_params['accum']['setpoint'] 
+				- self.system_params['accum']['differential_gap'])) and (not vent) and self.run_on:
+				# ~ print('pump on')
 				self.GPIO.output(self.pin_pump1, self.GPIO.HIGH) # turn on pump 1
 				self.GPIO.output(self.pin_pump2, self.GPIO.HIGH) # turn on pump 2
 			else: 
+				# ~ print('pump off')
 				self.GPIO.output(self.pin_pump1, self.GPIO.LOW) # turn off pump 1
 				self.GPIO.output(self.pin_pump2, self.GPIO.LOW) # turn off pump 2
 
@@ -279,8 +290,8 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		if self.run_on is True:
 			self.stop() # stop run thread if running
 		self.signal_stop_idle.emit() # stop idle thread
-		if not self.debug_gui:
-			self.GPIO.cleanup()
+		# ~ if not self.debug_gui:
+			# ~ self.GPIO.cleanup()
 		if self.plot:
 			self.plot_window.close()
 		if self.tune:
