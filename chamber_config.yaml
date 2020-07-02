@@ -1,8 +1,8 @@
-aur:
-    adc: 0
+aur: # chamber acronym (Anterior Upper Right)
+    adc: 0 # ADC channel for pressure sensor
     pwm: 
-        inflate: 0
-        deflate: 8
+        inflate: 0 # PWM channel for inflation valve
+        deflate: 8 # PWM channel for deflation valve
 aul:
     adc: 1
     pwm: 
@@ -18,23 +18,23 @@ all:
     pwm: 
         inflate: 3
         deflate: 11
-# pur:
-#     adc: 4
-#     pwm: 
-#         inflate: 4
-#         deflate: 12
-# pul:
-#     adc: 5
-#     pwm: 
-#         inflate: 5
-#         deflate: 13
-# plr:
-#     adc: 6
-#     pwm: 
-#         inflate: 6
-#         deflate: 14
-# pll:
-#     adc: 7
-#     pwm: 
-#         inflate: 7
-#         deflate: 15
+pur:
+    adc: 4
+    pwm: 
+        inflate: 4
+        deflate: 12
+pul:
+    adc: 5
+    pwm: 
+        inflate: 5
+        deflate: 13
+plr:
+    adc: 6
+    pwm: 
+        inflate: 6
+        deflate: 14
+pll:
+    adc: 7
+    pwm: 
+        inflate: 7
+        deflate: 15

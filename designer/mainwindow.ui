@@ -6,26 +6,48 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>505</width>
-    <height>638</height>
+    <width>1032</width>
+    <height>622</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1032</width>
+    <height>622</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1032</width>
+    <height>622</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow {background-color: rgb(240, 240, 240)}</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>212</x>
+      <x>200</x>
       <y>20</y>
-      <width>78</width>
+      <width>101</width>
       <height>22</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>14</pointsize>
+      <family>SF Pro Text</family>
+      <pointsize>16</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -33,25 +55,29 @@
     <property name="text">
      <string>Anterior</string>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
    <widget class="QPushButton" name="pushButton_on">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>517</y>
+      <x>921</x>
+      <y>523</y>
       <width>85</width>
       <height>27</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>SF Pro Text</family>
+      <pointsize>11</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(0, 190, 0);
-background-color: rgb(0, 170, 0);</string>
+     <string notr="true">background-color: rgb(225, 225, 225);</string>
     </property>
     <property name="text">
      <string>Run</string>
@@ -60,28 +86,29 @@ background-color: rgb(0, 170, 0);</string>
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>522</y>
+      <x>19</x>
+      <y>532</y>
       <width>81</width>
       <height>17</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>SF Pro Text</family>
       <pointsize>11</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
     <property name="text">
-     <string>Run Time</string>
+     <string>Run Time:</string>
     </property>
    </widget>
    <widget class="QGroupBox" name="groupBox_alr">
     <property name="geometry">
      <rect>
       <x>76</x>
-      <y>250</y>
+      <y>267</y>
       <width>162</width>
       <height>146</height>
      </rect>
@@ -94,6 +121,7 @@ background-color: rgb(0, 170, 0);</string>
     </property>
     <property name="font">
      <font>
+      <family>SF Pro Text</family>
       <pointsize>11</pointsize>
       <weight>75</weight>
       <bold>true</bold>
@@ -104,6 +132,9 @@ background-color: rgb(0, 170, 0);</string>
     </property>
     <property name="title">
      <string>Lower Right</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
     <property name="checkable">
      <bool>true</bool>
@@ -142,8 +173,8 @@ background-color: rgb(0, 170, 0);</string>
      <widget class="QSlider" name="horizontalSlider_alr">
       <property name="geometry">
        <rect>
-        <x>9</x>
-        <y>41</y>
+        <x>12</x>
+        <y>30</y>
         <width>131</width>
         <height>29</height>
        </rect>
@@ -163,6 +194,9 @@ background-color: rgb(0, 170, 0);</string>
       <property name="singleStep">
        <number>0</number>
       </property>
+      <property name="value">
+       <number>67</number>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -170,32 +204,13 @@ background-color: rgb(0, 170, 0);</string>
        <enum>QSlider::NoTicks</enum>
       </property>
      </widget>
-     <widget class="Line" name="line_4">
-      <property name="geometry">
-       <rect>
-        <x>9</x>
-        <y>68</y>
-        <width>136</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_16">
       <property name="geometry">
        <rect>
-        <x>66</x>
-        <y>12</y>
-        <width>78</width>
-        <height>16</height>
+        <x>55</x>
+        <y>8</y>
+        <width>91</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -206,6 +221,7 @@ background-color: rgb(0, 170, 0);</string>
       </property>
       <property name="font">
        <font>
+        <family>SF Pro Text</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -220,8 +236,8 @@ background-color: rgb(0, 170, 0);</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>8</y>
-        <width>50</width>
+        <y>4</y>
+        <width>49</width>
         <height>27</height>
        </rect>
       </property>
@@ -239,6 +255,7 @@ background-color: rgb(0, 170, 0);</string>
       </property>
       <property name="font">
        <font>
+        <family>SF Pro Text</family>
         <pointsize>11</pointsize>
        </font>
       </property>
@@ -249,19 +266,22 @@ background-color: rgb(0, 170, 0);</string>
        <number>1</number>
       </property>
       <property name="maximum">
-       <double>5.000000000000000</double>
+       <double>3.000000000000000</double>
       </property>
       <property name="singleStep">
        <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>2.000000000000000</double>
       </property>
      </widget>
      <widget class="QLabel" name="label_17">
       <property name="geometry">
        <rect>
-        <x>72</x>
-        <y>90</y>
-        <width>72</width>
-        <height>16</height>
+        <x>47</x>
+        <y>62</y>
+        <width>81</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -272,6 +292,7 @@ background-color: rgb(0, 170, 0);</string>
       </property>
       <property name="font">
        <font>
+        <family>SF Pro Text</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -289,7 +310,7 @@ background-color: rgb(0, 170, 0);</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>86</y>
+        <y>58</y>
         <width>35</width>
         <height>25</height>
        </rect>
@@ -308,6 +329,7 @@ background-color: rgb(0, 170, 0);</string>
       </property>
       <property name="font">
        <font>
+        <family>SF Pro Text</family>
         <pointsize>11</pointsize>
        </font>
       </property>
@@ -329,32 +351,12 @@ border-color: rgb(196, 193, 189);</string>
       </property>
      </widget>
     </widget>
-    <widget class="QLabel" name="label_alr_color">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>23</y>
-       <width>161</width>
-       <height>121</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgba(236, 177, 32, 100);
-background-color: rgb(170, 170, 255, 150);
-border-radius: 10px;</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <zorder>label_alr_color</zorder>
-    <zorder>frame_alr</zorder>
    </widget>
    <widget class="QGroupBox" name="groupBox_aur">
     <property name="geometry">
      <rect>
       <x>76</x>
-      <y>79</y>
+      <y>99</y>
       <width>162</width>
       <height>146</height>
      </rect>
@@ -367,6 +369,7 @@ border-radius: 10px;</string>
     </property>
     <property name="font">
      <font>
+      <family>SF Pro Text</family>
       <pointsize>11</pointsize>
       <weight>75</weight>
       <bold>true</bold>
@@ -377,6 +380,9 @@ border-radius: 10px;</string>
     </property>
     <property name="title">
      <string>Upper Right</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -424,8 +430,8 @@ border-radius: 10px;</string>
      <widget class="QSlider" name="horizontalSlider_aur">
       <property name="geometry">
        <rect>
-        <x>9</x>
-        <y>41</y>
+        <x>12</x>
+        <y>30</y>
         <width>131</width>
         <height>29</height>
        </rect>
@@ -447,6 +453,9 @@ selection-background-color: rgb(0, 114, 189);
       <property name="singleStep">
        <number>0</number>
       </property>
+      <property name="value">
+       <number>67</number>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -454,35 +463,13 @@ selection-background-color: rgb(0, 114, 189);
        <enum>QSlider::NoTicks</enum>
       </property>
      </widget>
-     <widget class="Line" name="line_5">
-      <property name="geometry">
-       <rect>
-        <x>9</x>
-        <y>68</y>
-        <width>136</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">border-color: rgb(255, 255, 255);</string>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_19">
       <property name="geometry">
        <rect>
-        <x>66</x>
-        <y>12</y>
-        <width>78</width>
-        <height>16</height>
+        <x>55</x>
+        <y>8</y>
+        <width>91</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -493,6 +480,7 @@ selection-background-color: rgb(0, 114, 189);
       </property>
       <property name="font">
        <font>
+        <family>SF Pro Text</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -510,8 +498,8 @@ selection-background-color: rgb(0, 114, 189);
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>8</y>
-        <width>50</width>
+        <y>4</y>
+        <width>49</width>
         <height>27</height>
        </rect>
       </property>
@@ -529,6 +517,7 @@ selection-background-color: rgb(0, 114, 189);
       </property>
       <property name="font">
        <font>
+        <family>SF Pro Text</family>
         <pointsize>11</pointsize>
        </font>
       </property>
@@ -542,19 +531,22 @@ selection-background-color: rgb(0, 114, 189);
        <number>1</number>
       </property>
       <property name="maximum">
-       <double>5.000000000000000</double>
+       <double>3.000000000000000</double>
       </property>
       <property name="singleStep">
        <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>2.000000000000000</double>
       </property>
      </widget>
      <widget class="QLabel" name="label_20">
       <property name="geometry">
        <rect>
-        <x>72</x>
-        <y>90</y>
-        <width>72</width>
-        <height>16</height>
+        <x>47</x>
+        <y>62</y>
+        <width>81</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -565,6 +557,7 @@ selection-background-color: rgb(0, 114, 189);
       </property>
       <property name="font">
        <font>
+        <family>SF Pro Text</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -582,7 +575,7 @@ selection-background-color: rgb(0, 114, 189);
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>86</y>
+        <y>58</y>
         <width>35</width>
         <height>25</height>
        </rect>
@@ -601,6 +594,7 @@ selection-background-color: rgb(0, 114, 189);
       </property>
       <property name="font">
        <font>
+        <family>SF Pro Text</family>
         <pointsize>11</pointsize>
        </font>
       </property>
@@ -622,33 +616,12 @@ border-color: rgb(196, 193, 189);</string>
       </property>
      </widget>
     </widget>
-    <widget class="QLabel" name="label_aur_color">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>23</y>
-       <width>161</width>
-       <height>121</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgba(0, 170, 255, 100);
-background-color: rgb(52, 141, 200, 150);
-background-color: rgb(53, 151, 255, 130);
-border-radius: 10px;</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <zorder>label_aur_color</zorder>
-    <zorder>frame_aur</zorder>
    </widget>
    <widget class="QGroupBox" name="groupBox_all">
     <property name="geometry">
      <rect>
       <x>266</x>
-      <y>249</y>
+      <y>267</y>
       <width>162</width>
       <height>146</height>
      </rect>
@@ -661,6 +634,7 @@ border-radius: 10px;</string>
     </property>
     <property name="font">
      <font>
+      <family>SF Pro Text</family>
       <pointsize>11</pointsize>
       <weight>75</weight>
       <bold>true</bold>
@@ -670,7 +644,10 @@ border-radius: 10px;</string>
      <string notr="true">QGroupBox { border:none}</string>
     </property>
     <property name="title">
-     <string>Lower Left</string>
+     <string>Lower Left  </string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
     <property name="checkable">
      <bool>true</bool>
@@ -709,8 +686,8 @@ border-radius: 10px;</string>
      <widget class="QSlider" name="horizontalSlider_all">
       <property name="geometry">
        <rect>
-        <x>9</x>
-        <y>41</y>
+        <x>12</x>
+        <y>30</y>
         <width>131</width>
         <height>29</height>
        </rect>
@@ -731,6 +708,9 @@ selection-background-color: rgb(0, 170, 0);</string>
       <property name="singleStep">
        <number>0</number>
       </property>
+      <property name="value">
+       <number>67</number>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -738,32 +718,13 @@ selection-background-color: rgb(0, 170, 0);</string>
        <enum>QSlider::NoTicks</enum>
       </property>
      </widget>
-     <widget class="Line" name="line_6">
-      <property name="geometry">
-       <rect>
-        <x>9</x>
-        <y>68</y>
-        <width>136</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_22">
       <property name="geometry">
        <rect>
-        <x>66</x>
-        <y>12</y>
-        <width>78</width>
-        <height>16</height>
+        <x>55</x>
+        <y>8</y>
+        <width>91</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -774,6 +735,7 @@ selection-background-color: rgb(0, 170, 0);</string>
       </property>
       <property name="font">
        <font>
+        <family>SF Pro Text</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -788,8 +750,8 @@ selection-background-color: rgb(0, 170, 0);</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>8</y>
-        <width>50</width>
+        <y>4</y>
+        <width>49</width>
         <height>27</height>
        </rect>
       </property>
@@ -807,6 +769,7 @@ selection-background-color: rgb(0, 170, 0);</string>
       </property>
       <property name="font">
        <font>
+        <family>SF Pro Text</family>
         <pointsize>11</pointsize>
        </font>
       </property>
@@ -817,19 +780,22 @@ selection-background-color: rgb(0, 170, 0);</string>
        <number>1</number>
       </property>
       <property name="maximum">
-       <double>5.000000000000000</double>
+       <double>3.000000000000000</double>
       </property>
       <property name="singleStep">
        <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>2.000000000000000</double>
       </property>
      </widget>
      <widget class="QLabel" name="label_23">
       <property name="geometry">
        <rect>
-        <x>72</x>
-        <y>90</y>
-        <width>72</width>
-        <height>16</height>
+        <x>47</x>
+        <y>62</y>
+        <width>81</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -840,6 +806,7 @@ selection-background-color: rgb(0, 170, 0);</string>
       </property>
       <property name="font">
        <font>
+        <family>SF Pro Text</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -857,7 +824,7 @@ selection-background-color: rgb(0, 170, 0);</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>86</y>
+        <y>58</y>
         <width>35</width>
         <height>25</height>
        </rect>
@@ -876,6 +843,7 @@ selection-background-color: rgb(0, 170, 0);</string>
       </property>
       <property name="font">
        <font>
+        <family>SF Pro Text</family>
         <pointsize>11</pointsize>
        </font>
       </property>
@@ -897,32 +865,12 @@ border-color: rgb(196, 193, 189);</string>
       </property>
      </widget>
     </widget>
-    <widget class="QLabel" name="label_all_color">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>23</y>
-       <width>161</width>
-       <height>121</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgba(119, 172, 48, 100);
-background-color: rgb(173, 206, 130, 150);
-border-radius: 10px;</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <zorder>label_all_color</zorder>
-    <zorder>frame_all</zorder>
    </widget>
    <widget class="QGroupBox" name="groupBox_aul">
     <property name="geometry">
      <rect>
       <x>266</x>
-      <y>79</y>
+      <y>99</y>
       <width>162</width>
       <height>146</height>
      </rect>
@@ -935,6 +883,7 @@ border-radius: 10px;</string>
     </property>
     <property name="font">
      <font>
+      <family>SF Pro Text</family>
       <pointsize>11</pointsize>
       <weight>75</weight>
       <bold>true</bold>
@@ -944,7 +893,10 @@ border-radius: 10px;</string>
      <string notr="true">QGroupBox { border:none}</string>
     </property>
     <property name="title">
-     <string>Upper Left</string>
+     <string>Upper Left  </string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -986,8 +938,8 @@ border-radius: 10px;</string>
      <widget class="QSlider" name="horizontalSlider_aul">
       <property name="geometry">
        <rect>
-        <x>9</x>
-        <y>41</y>
+        <x>12</x>
+        <y>30</y>
         <width>131</width>
         <height>29</height>
        </rect>
@@ -999,13 +951,17 @@ border-radius: 10px;</string>
        </sizepolicy>
       </property>
       <property name="styleSheet">
-       <string notr="true">selection-background-color: rgb(216, 83, 25);</string>
+       <string notr="true">selection-background-color: rgb(220, 52, 50, 255);
+</string>
       </property>
       <property name="maximum">
        <number>100</number>
       </property>
       <property name="singleStep">
        <number>0</number>
+      </property>
+      <property name="value">
+       <number>67</number>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -1014,32 +970,13 @@ border-radius: 10px;</string>
        <enum>QSlider::NoTicks</enum>
       </property>
      </widget>
-     <widget class="Line" name="line_7">
-      <property name="geometry">
-       <rect>
-        <x>9</x>
-        <y>68</y>
-        <width>136</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_25">
       <property name="geometry">
        <rect>
-        <x>66</x>
-        <y>12</y>
-        <width>78</width>
-        <height>16</height>
+        <x>55</x>
+        <y>8</y>
+        <width>91</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -1050,6 +987,7 @@ border-radius: 10px;</string>
       </property>
       <property name="font">
        <font>
+        <family>SF Pro Text</family>
         <pointsize>10</pointsize>
         <weight>50</weight>
         <bold>false</bold>
@@ -1066,8 +1004,8 @@ border-radius: 10px;</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>8</y>
-        <width>50</width>
+        <y>4</y>
+        <width>49</width>
         <height>27</height>
        </rect>
       </property>
@@ -1085,6 +1023,7 @@ border-radius: 10px;</string>
       </property>
       <property name="font">
        <font>
+        <family>SF Pro Text</family>
         <pointsize>11</pointsize>
         <weight>50</weight>
         <bold>false</bold>
@@ -1097,19 +1036,22 @@ border-radius: 10px;</string>
        <number>1</number>
       </property>
       <property name="maximum">
-       <double>5.000000000000000</double>
+       <double>3.000000000000000</double>
       </property>
       <property name="singleStep">
        <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>2.000000000000000</double>
       </property>
      </widget>
      <widget class="QLabel" name="label_26">
       <property name="geometry">
        <rect>
-        <x>72</x>
-        <y>90</y>
-        <width>72</width>
-        <height>16</height>
+        <x>47</x>
+        <y>62</y>
+        <width>81</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -1120,6 +1062,7 @@ border-radius: 10px;</string>
       </property>
       <property name="font">
        <font>
+        <family>SF Pro Text</family>
         <pointsize>10</pointsize>
         <weight>50</weight>
         <bold>false</bold>
@@ -1139,7 +1082,7 @@ border-radius: 10px;</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>86</y>
+        <y>58</y>
         <width>35</width>
         <height>25</height>
        </rect>
@@ -1158,6 +1101,7 @@ border-radius: 10px;</string>
       </property>
       <property name="font">
        <font>
+        <family>SF Pro Text</family>
         <pointsize>11</pointsize>
         <weight>50</weight>
         <bold>false</bold>
@@ -1181,27 +1125,6 @@ border-color: rgb(196, 193, 189);</string>
       </property>
      </widget>
     </widget>
-    <widget class="QLabel" name="label_aul_color">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>23</y>
-       <width>161</width>
-       <height>121</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgba(216, 83, 25, 100);
-background-color: rgb(231, 179, 156, 150);
-background-color: rgba(221, 117, 72, 140);
-border-radius: 10px;</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <zorder>label_aul_color</zorder>
-    <zorder>frame_aul</zorder>
    </widget>
    <widget class="QLabel" name="label_t_run">
     <property name="enabled">
@@ -1209,8 +1132,265 @@ border-radius: 10px;</string>
     </property>
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>517</y>
+      <x>86</x>
+      <y>528</y>
+      <width>51</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>SF Pro Text</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+background-color: rgb(240, 240, 240);
+border-color: rgb(196, 193, 189);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="text">
+     <string>0.0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_21">
+    <property name="geometry">
+     <rect>
+      <x>128</x>
+      <y>531</y>
+      <width>41</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <family>SF Pro Text</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>(min)</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_ant">
+    <property name="geometry">
+     <rect>
+      <x>14</x>
+      <y>50</y>
+      <width>471</width>
+      <height>451</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>img/anterior.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_2">
+    <property name="geometry">
+     <rect>
+      <x>1140</x>
+      <y>10</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(0, 114, 189);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_3">
+    <property name="geometry">
+     <rect>
+      <x>1140</x>
+      <y>430</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(119, 172, 48);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_5">
+    <property name="geometry">
+     <rect>
+      <x>1140</x>
+      <y>150</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(216, 83, 25);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_6">
+    <property name="geometry">
+     <rect>
+      <x>1140</x>
+      <y>290</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(236, 177, 32);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_7">
+    <property name="geometry">
+     <rect>
+      <x>1310</x>
+      <y>290</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(236, 177, 32, 200);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_8">
+    <property name="geometry">
+     <rect>
+      <x>1310</x>
+      <y>430</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(119, 172, 48, 200);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_9">
+    <property name="geometry">
+     <rect>
+      <x>1310</x>
+      <y>150</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(216, 83, 25, 200);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_10">
+    <property name="geometry">
+     <rect>
+      <x>1310</x>
+      <y>10</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(0, 114, 189, 200);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_11">
+    <property name="geometry">
+     <rect>
+      <x>1310</x>
+      <y>570</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(236, 177, 32, 100);
+background-color: rgb(170, 170, 255, 150);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_12">
+    <property name="geometry">
+     <rect>
+      <x>1140</x>
+      <y>570</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(144, 144, 216);
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_t_run_2">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>650</y>
       <width>51</width>
       <height>25</height>
      </rect>
@@ -1249,12 +1429,12 @@ border-color: rgb(196, 193, 189);</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="label_21">
+   <widget class="QLabel" name="label_35">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>520</y>
-      <width>41</width>
+      <x>260</x>
+      <y>650</y>
+      <width>101</width>
       <height>20</height>
      </rect>
     </property>
@@ -1270,16 +1450,16 @@ border-color: rgb(196, 193, 189);</string>
      </font>
     </property>
     <property name="text">
-     <string>(min)</string>
+     <string>(psi) accumulator</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="label_post">
     <property name="geometry">
      <rect>
-      <x>14</x>
+      <x>540</x>
       <y>50</y>
       <width>471</width>
       <height>451</height>
@@ -1289,49 +1469,586 @@ border-color: rgb(196, 193, 189);</string>
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>img/anterior.png</pixmap>
+     <pixmap>img/posterior.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="label_alr_color_2">
+   <widget class="QGroupBox" name="groupBox_pul">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>30</y>
+      <x>598</x>
+      <y>99</y>
+      <width>162</width>
+      <height>146</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <family>SF Pro Text</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox { border:none}</string>
+    </property>
+    <property name="title">
+     <string>Upper Left  </string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+    <widget class="QFrame" name="frame_pul">
+     <property name="geometry">
+      <rect>
+       <x>4</x>
+       <y>24</y>
+       <width>154</width>
+       <height>110</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <property name="lineWidth">
+      <number>1</number>
+     </property>
+     <widget class="QSlider" name="horizontalSlider_pul">
+      <property name="geometry">
+       <rect>
+        <x>12</x>
+        <y>30</y>
+        <width>131</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">selection-background-color: rgb(216, 83, 25);
+selection-background-color: rgb(250, 231, 81, 255);
+</string>
+      </property>
+      <property name="maximum">
+       <number>100</number>
+      </property>
+      <property name="singleStep">
+       <number>0</number>
+      </property>
+      <property name="value">
+       <number>67</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::NoTicks</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_28">
+      <property name="geometry">
+       <rect>
+        <x>55</x>
+        <y>8</y>
+        <width>91</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>SF Pro Text</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>setpoint (psi)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_pul">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>4</y>
+        <width>49</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>50</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>SF Pro Text</family>
+        <pointsize>11</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="decimals">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <double>3.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>2.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_29">
+      <property name="geometry">
+       <rect>
+        <x>47</x>
+        <y>62</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>SF Pro Text</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>current (psi)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_pul">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>58</y>
+        <width>35</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>SF Pro Text</family>
+        <pointsize>11</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-color: rgb(196, 193, 189);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>0.0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_pur">
+    <property name="geometry">
+     <rect>
+      <x>788</x>
+      <y>99</y>
+      <width>162</width>
+      <height>146</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <family>SF Pro Text</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox { border:none}</string>
+    </property>
+    <property name="title">
+     <string>Upper Right</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <widget class="QFrame" name="frame_pur">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>4</x>
+       <y>24</y>
+       <width>156</width>
+       <height>120</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <property name="lineWidth">
+      <number>1</number>
+     </property>
+     <widget class="QSlider" name="horizontalSlider_pur">
+      <property name="geometry">
+       <rect>
+        <x>12</x>
+        <y>30</y>
+        <width>131</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(255, 255, 255, 0);
+selection-background-color: rgb(0, 114, 189);
+</string>
+      </property>
+      <property name="maximum">
+       <number>100</number>
+      </property>
+      <property name="singleStep">
+       <number>0</number>
+      </property>
+      <property name="value">
+       <number>67</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::NoTicks</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_30">
+      <property name="geometry">
+       <rect>
+        <x>55</x>
+        <y>8</y>
+        <width>91</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>SF Pro Text</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+      </property>
+      <property name="text">
+       <string>setpoint (psi)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_pur">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>4</y>
+        <width>49</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>50</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>SF Pro Text</family>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="decimals">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <double>3.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>2.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_31">
+      <property name="geometry">
+       <rect>
+        <x>47</x>
+        <y>62</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>SF Pro Text</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>current (psi)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_pur">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>58</y>
+        <width>35</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>SF Pro Text</family>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-color: rgb(196, 193, 189);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>0.0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>724</x>
+      <y>20</y>
+      <width>101</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>SF Pro Text</family>
+      <pointsize>16</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Posterior</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color_13">
+    <property name="geometry">
+     <rect>
+      <x>1310</x>
+      <y>720</y>
       <width>161</width>
       <height>131</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgba(0, 114, 189);</string>
+     <string notr="true">background-color: rgb(100, 0, 0, 150);</string>
     </property>
     <property name="text">
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="label_alr_color_3">
+   <widget class="QLabel" name="label_alr_color_14">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>450</y>
-      <width>161</width>
-      <height>131</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgba(119, 172, 48);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_alr_color_5">
-    <property name="geometry">
-     <rect>
-      <x>560</x>
-      <y>170</y>
+      <x>1140</x>
+      <y>720</y>
       <width>161</width>
       <height>131</height>
      </rect>
@@ -1343,121 +2060,690 @@ border-color: rgb(196, 193, 189);</string>
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="label_alr_color_6">
+   <widget class="QLabel" name="label_color_pul">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>310</y>
-      <width>161</width>
-      <height>131</height>
+      <x>604</x>
+      <y>94</y>
+      <width>150</width>
+      <height>122</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgba(236, 177, 32);</string>
+     <string notr="true">background-color: rgba(216, 83, 25, 100);
+background-color: rgb(231, 179, 156, 150);
+background-color: rgba(221, 117, 72, 140);
+background-color: rgb(250, 231, 81, 150);
+border-radius: 10px;</string>
     </property>
     <property name="text">
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="label_alr_color_7">
+   <widget class="QLabel" name="label_aur_color_2">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>310</y>
-      <width>161</width>
-      <height>131</height>
+      <x>794</x>
+      <y>94</y>
+      <width>150</width>
+      <height>122</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgba(236, 177, 32, 200);</string>
+     <string notr="true">background-color: rgba(0, 170, 255, 100);
+background-color: rgb(52, 141, 200, 150);
+background-color: rgb(53, 151, 255, 130);
+border-radius: 10px;</string>
     </property>
     <property name="text">
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="label_alr_color_8">
+   <widget class="QGroupBox" name="groupBox_pll">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>450</y>
-      <width>161</width>
-      <height>131</height>
+      <x>600</x>
+      <y>267</y>
+      <width>162</width>
+      <height>146</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <family>SF Pro Text</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox { border:none}</string>
+    </property>
+    <property name="title">
+     <string>Lower Left  </string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+    <widget class="QFrame" name="frame_pll">
+     <property name="geometry">
+      <rect>
+       <x>4</x>
+       <y>24</y>
+       <width>154</width>
+       <height>110</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <property name="lineWidth">
+      <number>1</number>
+     </property>
+     <widget class="QSlider" name="horizontalSlider_pll">
+      <property name="geometry">
+       <rect>
+        <x>12</x>
+        <y>30</y>
+        <width>131</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">selection-background-color: rgb(0, 170, 0);</string>
+      </property>
+      <property name="maximum">
+       <number>100</number>
+      </property>
+      <property name="singleStep">
+       <number>0</number>
+      </property>
+      <property name="value">
+       <number>67</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::NoTicks</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_36">
+      <property name="geometry">
+       <rect>
+        <x>55</x>
+        <y>8</y>
+        <width>91</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>SF Pro Text</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>setpoint (psi)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_pll">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>4</y>
+        <width>49</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>50</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>SF Pro Text</family>
+        <pointsize>11</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="decimals">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <double>3.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>2.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_37">
+      <property name="geometry">
+       <rect>
+        <x>47</x>
+        <y>62</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>SF Pro Text</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>current (psi)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_pll">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>58</y>
+        <width>35</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>SF Pro Text</family>
+        <pointsize>11</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-color: rgb(196, 193, 189);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>0.0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_plr">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>267</y>
+      <width>162</width>
+      <height>146</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <family>SF Pro Text</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox { border:none}</string>
+    </property>
+    <property name="title">
+     <string>Lower Right</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <widget class="QFrame" name="frame_plr">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>4</x>
+       <y>24</y>
+       <width>156</width>
+       <height>120</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <property name="lineWidth">
+      <number>1</number>
+     </property>
+     <widget class="QSlider" name="horizontalSlider_plr">
+      <property name="geometry">
+       <rect>
+        <x>12</x>
+        <y>30</y>
+        <width>131</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">selection-background-color: rgb(141, 70, 212);</string>
+      </property>
+      <property name="maximum">
+       <number>100</number>
+      </property>
+      <property name="singleStep">
+       <number>0</number>
+      </property>
+      <property name="value">
+       <number>67</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::NoTicks</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_33">
+      <property name="geometry">
+       <rect>
+        <x>55</x>
+        <y>8</y>
+        <width>91</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>SF Pro Text</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+      </property>
+      <property name="text">
+       <string>setpoint (psi)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_plr">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>4</y>
+        <width>49</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>50</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>SF Pro Text</family>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="decimals">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <double>3.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>2.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_34">
+      <property name="geometry">
+       <rect>
+        <x>47</x>
+        <y>62</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>SF Pro Text</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>current (psi)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_plr">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>58</y>
+        <width>35</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>SF Pro Text</family>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-color: rgb(196, 193, 189);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>0.0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label_color_pul_2">
+    <property name="geometry">
+     <rect>
+      <x>606</x>
+      <y>262</y>
+      <width>150</width>
+      <height>122</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgba(119, 172, 48, 200);</string>
+     <string notr="true">background-color: rgb(136, 212, 152, 175);
+border-radius: 10px;</string>
     </property>
     <property name="text">
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="label_alr_color_9">
+   <widget class="QLabel" name="label_aur_color_3">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>170</y>
-      <width>161</width>
-      <height>131</height>
+      <x>796</x>
+      <y>262</y>
+      <width>150</width>
+      <height>122</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgba(216, 83, 25, 200);</string>
+     <string notr="true">background-color: rgb(170, 170, 255, 150);
+border-radius: 10px;</string>
     </property>
     <property name="text">
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="label_alr_color_10">
+   <widget class="QLabel" name="label_aul_color">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>30</y>
-      <width>161</width>
-      <height>131</height>
+      <x>272</x>
+      <y>94</y>
+      <width>150</width>
+      <height>122</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgba(0, 114, 189, 200);</string>
+     <string notr="true">background-color: rgba(216, 83, 25, 100);
+background-color: rgb(231, 179, 156, 150);
+background-color: rgba(221, 117, 72, 140);
+background-color: rgb(220, 52, 50, 125);
+border-radius: 10px;</string>
     </property>
     <property name="text">
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="label_alr_color_11">
+   <widget class="QLabel" name="label_aur_color">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>590</y>
-      <width>161</width>
-      <height>131</height>
+      <x>82</x>
+      <y>94</y>
+      <width>150</width>
+      <height>122</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(0, 170, 255, 100);
+background-color: rgb(52, 141, 200, 150);
+background-color: rgb(53, 151, 255, 130);
+border-radius: 10px;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alr_color">
+    <property name="geometry">
+     <rect>
+      <x>82</x>
+      <y>262</y>
+      <width>150</width>
+      <height>122</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgba(236, 177, 32, 100);
-background-color: rgb(170, 170, 255, 150);</string>
+background-color: rgb(170, 170, 255, 150);
+border-radius: 10px;</string>
     </property>
     <property name="text">
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="label_alr_color_12">
+   <widget class="QLabel" name="label_all_color">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>590</y>
-      <width>161</width>
-      <height>131</height>
+      <x>272</x>
+      <y>262</y>
+      <width>150</width>
+      <height>122</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(144, 144, 216);
-</string>
+     <string notr="true">background-color: rgba(119, 172, 48, 100);
+background-color: rgb(173, 206, 130, 150);
+background-color: rgb(136, 212, 152, 175);
+border-radius: 10px;</string>
     </property>
     <property name="text">
      <string/>
     </property>
    </widget>
-   <zorder>label_2</zorder>
+   <zorder>label_t_run</zorder>
+   <zorder>label_ant</zorder>
+   <zorder>label_alr_color</zorder>
+   <zorder>label_all_color</zorder>
+   <zorder>label_aur_color</zorder>
+   <zorder>label_aul_color</zorder>
+   <zorder>label_post</zorder>
+   <zorder>label_color_pul_2</zorder>
+   <zorder>label_aur_color_2</zorder>
+   <zorder>label_color_pul</zorder>
    <zorder>label</zorder>
    <zorder>pushButton_on</zorder>
    <zorder>label_9</zorder>
@@ -1465,7 +2751,6 @@ background-color: rgb(170, 170, 255, 150);</string>
    <zorder>groupBox_aur</zorder>
    <zorder>groupBox_all</zorder>
    <zorder>groupBox_aul</zorder>
-   <zorder>label_t_run</zorder>
    <zorder>label_21</zorder>
    <zorder>label_alr_color_2</zorder>
    <zorder>label_alr_color_3</zorder>
@@ -1477,13 +2762,23 @@ background-color: rgb(170, 170, 255, 150);</string>
    <zorder>label_alr_color_10</zorder>
    <zorder>label_alr_color_11</zorder>
    <zorder>label_alr_color_12</zorder>
+   <zorder>label_t_run_2</zorder>
+   <zorder>label_35</zorder>
+   <zorder>groupBox_pul</zorder>
+   <zorder>label_4</zorder>
+   <zorder>label_alr_color_13</zorder>
+   <zorder>label_alr_color_14</zorder>
+   <zorder>groupBox_pur</zorder>
+   <zorder>groupBox_pll</zorder>
+   <zorder>label_aur_color_3</zorder>
+   <zorder>groupBox_plr</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>505</width>
+     <width>1032</width>
      <height>21</height>
     </rect>
    </property>
