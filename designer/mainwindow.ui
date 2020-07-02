@@ -1178,7 +1178,7 @@ border-color: rgb(196, 193, 189);</string>
     <property name="geometry">
      <rect>
       <x>128</x>
-      <y>531</y>
+      <y>529</y>
       <width>41</width>
       <height>20</height>
      </rect>
@@ -2779,7 +2779,7 @@ border-radius: 10px;</string>
      <x>0</x>
      <y>0</y>
      <width>1032</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

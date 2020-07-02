@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'designer/mainwindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.5.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -530,7 +530,7 @@ class Ui_MainWindow(object):
         self.label_t_run.setAlignment(QtCore.Qt.AlignCenter)
         self.label_t_run.setObjectName("label_t_run")
         self.label_21 = QtWidgets.QLabel(self.centralWidget)
-        self.label_21.setGeometry(QtCore.QRect(128, 531, 41, 20))
+        self.label_21.setGeometry(QtCore.QRect(128, 529, 41, 20))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -1231,7 +1231,7 @@ class Ui_MainWindow(object):
         self.groupBox_plr.raise_()
         MainWindow.setCentralWidget(self.centralWidget)
         self.menuBar = QtWidgets.QMenuBar(MainWindow)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 1032, 21))
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 1032, 25))
         self.menuBar.setObjectName("menuBar")
         MainWindow.setMenuBar(self.menuBar)
         self.mainToolBar = QtWidgets.QToolBar(MainWindow)
