@@ -1,5 +1,5 @@
 freq:
-  sense: 5
+  sense: 1.0
   display: 2.0
   control: 1
   log: 0.1
