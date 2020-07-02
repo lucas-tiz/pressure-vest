@@ -47,7 +47,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		self.debug_gui = debug_gui
 		if not debug_gui:
 			from package import adc # ADC driver class
-			self.adc = adc.Adc(0, 0, self.n_chambers+1) # add 1 for accumulator pressure 
+			self.adc = adc.Adc(0, 0, self.n_chambers) # 1 extra for accumulator pressure 
 			
 			import RPi.GPIO as GPIO
 			self.GPIO = GPIO
@@ -173,23 +173,25 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		''' Read/convert pressures from ADC & update pressure of each chamber object '''
 		if not self.debug_gui:
 			data = self.adc.readAll() # read pressures
+			print(data)
 		else: #DEBUG
 			data = []
 			for idx in range(0,self.n_chambers+2): # extra for accum pres
 				counts = np.sin(t + idx*0.25*np.pi)*1000 # + 2047
 				data.append([idx,counts])
 
+		Vs = 5.0 # supply voltage 
 		for chamber in self.chambers.values(): # update chamber pressures
 			idx_adc = chamber['adc'] # ADC index of pressure chamber
 			counts = data[idx_adc][1] # corresponding pressure data point
-			Vs = 5.0
 			pressure = (counts*(5.0/4095.0) - 0.10*Vs)*(5.0/(0.8*Vs)) # transfer function
 			chamber['obj'].updateMeasurement(pressure) # update chamber measurement
 			self.pressures[idx_adc] = pressure # update pressures in class (in order of ADC)
 			
 		counts = data[-1][1]
 		self.pressure_accum = (counts*(5.0/4095.0) - 0.10*Vs)*(5.0/(0.8*Vs))  # update accumulator pressure
-
+		# ~ print(self.pressure_accum) #DEBUG
+		
 
 	def sensorDisplayUpdate(self,t):
 		for chamber in self.chambers.values(): # update chamber pressures
