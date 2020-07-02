@@ -173,7 +173,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		''' Read/convert pressures from ADC & update pressure of each chamber object '''
 		if not self.debug_gui:
 			data = self.adc.readAll() # read pressures
-			print(data)
+			# ~ print(data) #DEBUG
 		else: #DEBUG
 			data = []
 			for idx in range(0,self.n_chambers+2): # extra for accum pres
