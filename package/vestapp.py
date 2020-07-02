@@ -113,9 +113,10 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 
 		#TODO: put somewhere
-		# pixmap = QtGui.QPixmap('designer/img/ant.jpg')
-		self.label_2.setPixmap(QtGui.QPixmap("designer/img/anterior.png"))
-		self.label_2.setScaledContents(True)
+		self.label_ant.setPixmap(QtGui.QPixmap("designer/img/anterior.png"))
+		self.label_ant.setScaledContents(True)
+		self.label_post.setPixmap(QtGui.QPixmap("designer/img/posterior.png"))
+		self.label_post.setScaledContents(True)
 
 
 	def showPlotter(self):
@@ -137,8 +138,9 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		self.run_on = True
 		# self.GPIO.output(self.pin_pump1, self.GPIO.HIGH) #DEBUG
 		# self.GPIO.output(self.pin_pump2, self.GPIO.HIGH) #DEBUG
+		self.pushButton_on.setStyleSheet("background-color: rgb(235, 64, 52);\n")		
 		self.pushButton_on.setText('Stop')
-		self.pushButton_on.setStyleSheet("background-color: rgb(235, 64, 52);\n")
+		self.statusBar.showMessage('Running...')
 		print('running...') #DEBUG
 		self.initLog() # initialize data log
 		self.thread_run.start()
@@ -148,8 +150,10 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		self.run_on = False
 		# self.GPIO.output(self.pin_pump1, self.GPIO.LOW) #DEBUG
 		# self.GPIO.output(self.pin_pump2, self.GPIO.LOW) #DEBUG
+		# self.pushButton_on.setStyleSheet("background-color: rgb(0, 170, 0);\n")
+		self.pushButton_on.setStyleSheet("background-color: rgb(225, 225, 225);\n")
 		self.pushButton_on.setText('Run')
-		self.pushButton_on.setStyleSheet("background-color: rgb(0, 170, 0);\n")
+		self.statusBar.showMessage('Stopped.', 2000)
 		print('stopped!') #DEBUG
 		self.signal_stop_run.emit() # emit run stop signal
 		self.controlUpdate(vent=True) # turn off all
@@ -171,7 +175,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 			data = self.adc.readAll() # read pressures
 		else: #DEBUG
 			data = []
-			for idx in range(0,self.n_chambers+1):
+			for idx in range(0,self.n_chambers+2): # extra for accum pres
 				counts = np.sin(t + idx*0.25*np.pi)*1000 # + 2047
 				data.append([idx,counts])
 
@@ -180,11 +184,11 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 			counts = data[idx_adc][1] # corresponding pressure data point
 			Vs = 5.0
 			pressure = (counts*(5.0/4095.0) - 0.10*Vs)*(5.0/(0.8*Vs)) # transfer function
-			
 			chamber['obj'].updateMeasurement(pressure) # update chamber measurement
 			self.pressures[idx_adc] = pressure # update pressures in class (in order of ADC)
 			
-		self.pressure_accum = data[-1] # update accumulator pressure
+		counts = data[-1][1]
+		self.pressure_accum = (counts*(5.0/4095.0) - 0.10*Vs)*(5.0/(0.8*Vs))  # update accumulator pressure
 
 
 	def sensorDisplayUpdate(self,t):
@@ -205,13 +209,13 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 			for idx, duty in enumerate(dutys):
 				self.pwm.set_pwm(idx, duty) # update duty cycles on PWM board
 
-		if self.pressure_accum < (self.system_params['accum']['setpoint'] 
-			- self.system_params['accum']['differential_gap']):
-			self.GPIO.output(self.pin_pump1, self.GPIO.HIGH) # turn on pump 1
-			self.GPIO.output(self.pin_pump2, self.GPIO.HIGH) # turn on pump 2
-		else: 
-			self.GPIO.output(self.pin_pump1, self.GPIO.LOW) # turn off pump 1
-			self.GPIO.output(self.pin_pump2, self.GPIO.LOW) # turn off pump 2
+			if self.pressure_accum < (self.system_params['accum']['setpoint'] 
+				- self.system_params['accum']['differential_gap']):
+				self.GPIO.output(self.pin_pump1, self.GPIO.HIGH) # turn on pump 1
+				self.GPIO.output(self.pin_pump2, self.GPIO.HIGH) # turn on pump 2
+			else: 
+				self.GPIO.output(self.pin_pump1, self.GPIO.LOW) # turn off pump 1
+				self.GPIO.output(self.pin_pump2, self.GPIO.LOW) # turn off pump 2
 
 
 	def systemDisplayUpdate(self,t):
