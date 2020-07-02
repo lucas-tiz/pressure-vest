@@ -60,7 +60,7 @@ class Adc:
 		msg_16bit = (register_4bit << 12) | setting_12bit # combine register & settings
 		msbyte = msg_16bit >> 8 # split off most significant byte
 		lsbyte = msg_16bit & 0xFF # split off least significant byte
-		print(hex((msbyte << 8) | lsbyte))
+		# ~ print(hex((msbyte << 8) | lsbyte)) #DEBUG
 		# ~ self.spi.writebytes2([msbyte, lsbyte])
 		self.spi.xfer2([msbyte, lsbyte])
 		
