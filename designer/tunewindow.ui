@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>494</width>
-    <height>331</height>
+    <width>723</width>
+    <height>366</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,8 +22,8 @@
   <widget class="QLabel" name="label_19">
    <property name="geometry">
     <rect>
-     <x>21</x>
-     <y>184</y>
+     <x>25</x>
+     <y>220</y>
      <width>78</width>
      <height>16</height>
     </rect>
@@ -36,6 +36,7 @@
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>9</pointsize>
      <weight>75</weight>
      <bold>true</bold>
@@ -51,8 +52,8 @@
   <widget class="QLabel" name="label_20">
    <property name="geometry">
     <rect>
-     <x>131</x>
-     <y>184</y>
+     <x>135</x>
+     <y>220</y>
      <width>78</width>
      <height>16</height>
     </rect>
@@ -65,6 +66,7 @@
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>9</pointsize>
      <weight>75</weight>
      <bold>true</bold>
@@ -80,11 +82,19 @@
   <widget class="QPushButton" name="pushButton_save">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>285</y>
+     <x>617</x>
+     <y>320</y>
      <width>85</width>
      <height>27</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>SF Pro Text</family>
+     <pointsize>11</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
    </property>
    <property name="text">
     <string>Save</string>
@@ -93,9 +103,9 @@
   <widget class="QLabel" name="label_27">
    <property name="geometry">
     <rect>
-     <x>52</x>
+     <x>46</x>
      <y>28</y>
-     <width>151</width>
+     <width>161</width>
      <height>21</height>
     </rect>
    </property>
@@ -107,13 +117,14 @@
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>11</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
    </property>
    <property name="text">
-    <string>Control Parameters</string>
+    <string>Chamber Parameters</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -122,7 +133,7 @@
   <widget class="QLabel" name="label_28">
    <property name="geometry">
     <rect>
-     <x>318</x>
+     <x>543</x>
      <y>28</y>
      <width>121</width>
      <height>21</height>
@@ -136,6 +147,7 @@
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>11</pointsize>
      <weight>75</weight>
      <bold>true</bold>
@@ -153,9 +165,14 @@
     <rect>
      <x>20</x>
      <y>20</y>
-     <width>221</width>
-     <height>291</height>
+     <width>222</width>
+     <height>326</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>SF Pro Text</family>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(216, 216, 216);
@@ -168,11 +185,16 @@ border-radius: 10px;</string>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>290</x>
+     <x>518</x>
      <y>20</y>
-     <width>181</width>
+     <width>183</width>
      <height>248</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>SF Pro Text</family>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(216, 216, 216);
@@ -182,11 +204,11 @@ border-radius: 10px;</string>
     <string/>
    </property>
   </widget>
-  <widget class="QDoubleSpinBox" name="doubleSpinBox__control__inflation__kd">
+  <widget class="QDoubleSpinBox" name="doubleSpinBox__chamber__inflate__kd">
    <property name="geometry">
     <rect>
-     <x>32</x>
-     <y>272</y>
+     <x>36</x>
+     <y>308</y>
      <width>60</width>
      <height>27</height>
     </rect>
@@ -211,6 +233,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>11</pointsize>
     </font>
    </property>
@@ -233,9 +256,9 @@ border-radius: 10px;</string>
   <widget class="QLabel" name="label_18">
    <property name="geometry">
     <rect>
-     <x>98</x>
-     <y>277</y>
-     <width>16</width>
+     <x>102</x>
+     <y>313</y>
+     <width>21</width>
      <height>16</height>
     </rect>
    </property>
@@ -247,6 +270,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>10</pointsize>
     </font>
    </property>
@@ -257,11 +281,11 @@ border-radius: 10px;</string>
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QDoubleSpinBox" name="doubleSpinBox__control__inflation__kp">
+  <widget class="QDoubleSpinBox" name="doubleSpinBox__chamber__inflate__kp">
    <property name="geometry">
     <rect>
-     <x>32</x>
-     <y>206</y>
+     <x>36</x>
+     <y>242</y>
      <width>60</width>
      <height>27</height>
     </rect>
@@ -286,6 +310,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>11</pointsize>
     </font>
    </property>
@@ -308,9 +333,9 @@ border-radius: 10px;</string>
   <widget class="QLabel" name="label_16">
    <property name="geometry">
     <rect>
-     <x>98</x>
-     <y>210</y>
-     <width>16</width>
+     <x>102</x>
+     <y>246</y>
+     <width>21</width>
      <height>16</height>
     </rect>
    </property>
@@ -322,6 +347,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>10</pointsize>
     </font>
    </property>
@@ -332,11 +358,11 @@ border-radius: 10px;</string>
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QDoubleSpinBox" name="doubleSpinBox__control__inflation__ki">
+  <widget class="QDoubleSpinBox" name="doubleSpinBox__chamber__inflate__ki">
    <property name="geometry">
     <rect>
-     <x>32</x>
-     <y>239</y>
+     <x>36</x>
+     <y>275</y>
      <width>60</width>
      <height>27</height>
     </rect>
@@ -361,6 +387,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>11</pointsize>
     </font>
    </property>
@@ -383,8 +410,8 @@ border-radius: 10px;</string>
   <widget class="QLabel" name="label_17">
    <property name="geometry">
     <rect>
-     <x>98</x>
-     <y>244</y>
+     <x>102</x>
+     <y>280</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -397,6 +424,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>10</pointsize>
     </font>
    </property>
@@ -407,11 +435,11 @@ border-radius: 10px;</string>
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QDoubleSpinBox" name="doubleSpinBox__control__deflation__kd">
+  <widget class="QDoubleSpinBox" name="doubleSpinBox__chamber__deflate__kd">
    <property name="geometry">
     <rect>
-     <x>141</x>
-     <y>272</y>
+     <x>145</x>
+     <y>308</y>
      <width>60</width>
      <height>27</height>
     </rect>
@@ -436,6 +464,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>11</pointsize>
     </font>
    </property>
@@ -458,9 +487,9 @@ border-radius: 10px;</string>
   <widget class="QLabel" name="label_21">
    <property name="geometry">
     <rect>
-     <x>207</x>
-     <y>211</y>
-     <width>16</width>
+     <x>211</x>
+     <y>247</y>
+     <width>21</width>
      <height>16</height>
     </rect>
    </property>
@@ -472,6 +501,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>10</pointsize>
     </font>
    </property>
@@ -482,11 +512,11 @@ border-radius: 10px;</string>
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QDoubleSpinBox" name="doubleSpinBox__control__deflation__ki">
+  <widget class="QDoubleSpinBox" name="doubleSpinBox__chamber__deflate__ki">
    <property name="geometry">
     <rect>
-     <x>141</x>
-     <y>239</y>
+     <x>145</x>
+     <y>275</y>
      <width>60</width>
      <height>27</height>
     </rect>
@@ -511,6 +541,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>11</pointsize>
     </font>
    </property>
@@ -530,11 +561,11 @@ border-radius: 10px;</string>
     <double>0.100000000000000</double>
    </property>
   </widget>
-  <widget class="QDoubleSpinBox" name="doubleSpinBox__control__deflation__kp">
+  <widget class="QDoubleSpinBox" name="doubleSpinBox__chamber__deflate__kp">
    <property name="geometry">
     <rect>
-     <x>141</x>
-     <y>206</y>
+     <x>145</x>
+     <y>242</y>
      <width>60</width>
      <height>27</height>
     </rect>
@@ -559,6 +590,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>11</pointsize>
     </font>
    </property>
@@ -581,8 +613,8 @@ border-radius: 10px;</string>
   <widget class="QLabel" name="label_22">
    <property name="geometry">
     <rect>
-     <x>207</x>
-     <y>244</y>
+     <x>211</x>
+     <y>280</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -595,6 +627,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>10</pointsize>
     </font>
    </property>
@@ -608,9 +641,9 @@ border-radius: 10px;</string>
   <widget class="QLabel" name="label_23">
    <property name="geometry">
     <rect>
-     <x>207</x>
-     <y>277</y>
-     <width>16</width>
+     <x>211</x>
+     <y>313</y>
+     <width>21</width>
      <height>16</height>
     </rect>
    </property>
@@ -622,6 +655,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>10</pointsize>
     </font>
    </property>
@@ -635,9 +669,9 @@ border-radius: 10px;</string>
   <widget class="QLabel" name="label_24">
    <property name="geometry">
     <rect>
-     <x>97</x>
-     <y>132</y>
-     <width>99</width>
+     <x>96</x>
+     <y>166</y>
+     <width>131</width>
      <height>16</height>
     </rect>
    </property>
@@ -649,6 +683,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>10</pointsize>
     </font>
    </property>
@@ -659,11 +694,11 @@ border-radius: 10px;</string>
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QDoubleSpinBox" name="doubleSpinBox__control__noise_threshold">
+  <widget class="QDoubleSpinBox" name="doubleSpinBox__chamber__noise_threshold">
    <property name="geometry">
     <rect>
-     <x>31</x>
-     <y>61</y>
+     <x>30</x>
+     <y>94</y>
      <width>60</width>
      <height>27</height>
     </rect>
@@ -688,6 +723,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>11</pointsize>
     </font>
    </property>
@@ -710,9 +746,9 @@ border-radius: 10px;</string>
   <widget class="QLabel" name="label_25">
    <property name="geometry">
     <rect>
-     <x>97</x>
-     <y>99</y>
-     <width>128</width>
+     <x>96</x>
+     <y>133</y>
+     <width>141</width>
      <height>16</height>
     </rect>
    </property>
@@ -724,6 +760,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>10</pointsize>
     </font>
    </property>
@@ -737,9 +774,9 @@ border-radius: 10px;</string>
   <widget class="QLabel" name="label_26">
    <property name="geometry">
     <rect>
-     <x>97</x>
-     <y>66</y>
-     <width>117</width>
+     <x>96</x>
+     <y>100</y>
+     <width>141</width>
      <height>16</height>
     </rect>
    </property>
@@ -751,6 +788,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>10</pointsize>
     </font>
    </property>
@@ -761,256 +799,10 @@ border-radius: 10px;</string>
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QDoubleSpinBox" name="doubleSpinBox__control__windup_limit">
+  <widget class="QDoubleSpinBox" name="doubleSpinBox__chamber__windup_limit">
    <property name="geometry">
     <rect>
-     <x>31</x>
-     <y>127</y>
-     <width>60</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>60</width>
-     <height>27</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>50</width>
-     <height>16777215</height>
-    </size>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>11</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="decimals">
-    <number>0</number>
-   </property>
-   <property name="maximum">
-    <double>1000.000000000000000</double>
-   </property>
-   <property name="singleStep">
-    <double>1.000000000000000</double>
-   </property>
-  </widget>
-  <widget class="QDoubleSpinBox" name="doubleSpinBox__control__differential_gap">
-   <property name="geometry">
-    <rect>
-     <x>31</x>
-     <y>94</y>
-     <width>60</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>60</width>
-     <height>27</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>50</width>
-     <height>16777215</height>
-    </size>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>11</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="decimals">
-    <number>2</number>
-   </property>
-   <property name="maximum">
-    <double>1000.000000000000000</double>
-   </property>
-   <property name="singleStep">
-    <double>0.100000000000000</double>
-   </property>
-  </widget>
-  <widget class="QDoubleSpinBox" name="doubleSpinBox__freq__display">
-   <property name="geometry">
-    <rect>
-     <x>303</x>
-     <y>94</y>
-     <width>60</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>60</width>
-     <height>27</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>50</width>
-     <height>16777215</height>
-    </size>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>11</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="decimals">
-    <number>1</number>
-   </property>
-   <property name="maximum">
-    <double>1000.000000000000000</double>
-   </property>
-   <property name="singleStep">
-    <double>1.000000000000000</double>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_29">
-   <property name="geometry">
-    <rect>
-     <x>369</x>
-     <y>100</y>
-     <width>67</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>(Hz) display</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QDoubleSpinBox" name="doubleSpinBox__freq__control">
-   <property name="geometry">
-    <rect>
-     <x>303</x>
-     <y>127</y>
-     <width>60</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>60</width>
-     <height>27</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>50</width>
-     <height>16777215</height>
-    </size>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>11</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="decimals">
-    <number>1</number>
-   </property>
-   <property name="maximum">
-    <double>1000.000000000000000</double>
-   </property>
-   <property name="singleStep">
-    <double>1.000000000000000</double>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_31">
-   <property name="geometry">
-    <rect>
-     <x>369</x>
-     <y>133</y>
-     <width>67</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>(Hz) control</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QDoubleSpinBox" name="doubleSpinBox__freq__log">
-   <property name="geometry">
-    <rect>
-     <x>303</x>
+     <x>30</x>
      <y>160</y>
      <width>60</width>
      <height>27</height>
@@ -1036,6 +828,259 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="decimals">
+    <number>0</number>
+   </property>
+   <property name="maximum">
+    <double>1000.000000000000000</double>
+   </property>
+   <property name="singleStep">
+    <double>1.000000000000000</double>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="doubleSpinBox__chamber__differential_gap">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>127</y>
+     <width>60</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>60</width>
+     <height>27</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>50</width>
+     <height>16777215</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <family>SF Pro Text</family>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="decimals">
+    <number>2</number>
+   </property>
+   <property name="maximum">
+    <double>1000.000000000000000</double>
+   </property>
+   <property name="singleStep">
+    <double>0.100000000000000</double>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="doubleSpinBox__freq__display">
+   <property name="geometry">
+    <rect>
+     <x>528</x>
+     <y>94</y>
+     <width>60</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>60</width>
+     <height>27</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>50</width>
+     <height>16777215</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <family>SF Pro Text</family>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="decimals">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <double>1000.000000000000000</double>
+   </property>
+   <property name="singleStep">
+    <double>1.000000000000000</double>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_29">
+   <property name="geometry">
+    <rect>
+     <x>594</x>
+     <y>100</y>
+     <width>81</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>SF Pro Text</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>(Hz) display</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="doubleSpinBox__freq__control">
+   <property name="geometry">
+    <rect>
+     <x>528</x>
+     <y>127</y>
+     <width>60</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>60</width>
+     <height>27</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>50</width>
+     <height>16777215</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <family>SF Pro Text</family>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="decimals">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <double>1000.000000000000000</double>
+   </property>
+   <property name="singleStep">
+    <double>1.000000000000000</double>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_31">
+   <property name="geometry">
+    <rect>
+     <x>594</x>
+     <y>133</y>
+     <width>91</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>SF Pro Text</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>(Hz) control</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="doubleSpinBox__freq__log">
+   <property name="geometry">
+    <rect>
+     <x>528</x>
+     <y>160</y>
+     <width>60</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>60</width>
+     <height>27</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>50</width>
+     <height>16777215</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <family>SF Pro Text</family>
      <pointsize>11</pointsize>
     </font>
    </property>
@@ -1058,9 +1103,9 @@ border-radius: 10px;</string>
   <widget class="QLabel" name="label_32">
    <property name="geometry">
     <rect>
-     <x>369</x>
+     <x>594</x>
      <y>166</y>
-     <width>45</width>
+     <width>71</width>
      <height>16</height>
     </rect>
    </property>
@@ -1072,6 +1117,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>10</pointsize>
     </font>
    </property>
@@ -1085,7 +1131,7 @@ border-radius: 10px;</string>
   <widget class="QDoubleSpinBox" name="doubleSpinBox__freq__pwm">
    <property name="geometry">
     <rect>
-     <x>303</x>
+     <x>528</x>
      <y>193</y>
      <width>60</width>
      <height>27</height>
@@ -1111,6 +1157,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>11</pointsize>
     </font>
    </property>
@@ -1133,9 +1180,9 @@ border-radius: 10px;</string>
   <widget class="QLabel" name="label_33">
    <property name="geometry">
     <rect>
-     <x>369</x>
+     <x>594</x>
      <y>199</y>
-     <width>90</width>
+     <width>101</width>
      <height>16</height>
     </rect>
    </property>
@@ -1147,6 +1194,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>10</pointsize>
     </font>
    </property>
@@ -1160,7 +1208,7 @@ border-radius: 10px;</string>
   <widget class="QDoubleSpinBox" name="doubleSpinBox__freq__sense">
    <property name="geometry">
     <rect>
-     <x>303</x>
+     <x>528</x>
      <y>61</y>
      <width>60</width>
      <height>27</height>
@@ -1186,6 +1234,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>11</pointsize>
     </font>
    </property>
@@ -1208,9 +1257,9 @@ border-radius: 10px;</string>
   <widget class="QLabel" name="label_30">
    <property name="geometry">
     <rect>
-     <x>369</x>
+     <x>594</x>
      <y>67</y>
-     <width>61</width>
+     <width>81</width>
      <height>16</height>
     </rect>
    </property>
@@ -1222,6 +1271,7 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>SF Pro Text</family>
      <pointsize>10</pointsize>
     </font>
    </property>
@@ -1235,16 +1285,306 @@ border-radius: 10px;</string>
   <widget class="QPushButton" name="pushButton_update">
    <property name="geometry">
     <rect>
-     <x>304</x>
+     <x>531</x>
      <y>230</y>
-     <width>154</width>
+     <width>160</width>
      <height>27</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>SF Pro Text</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
    <property name="text">
     <string>Update</string>
    </property>
   </widget>
+  <widget class="QDoubleSpinBox" name="doubleSpinBox__chamber__deadzone">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>61</y>
+     <width>60</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>60</width>
+     <height>27</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>50</width>
+     <height>16777215</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <family>SF Pro Text</family>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="decimals">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <double>1000.000000000000000</double>
+   </property>
+   <property name="singleStep">
+    <double>1.000000000000000</double>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_34">
+   <property name="geometry">
+    <rect>
+     <x>96</x>
+     <y>67</y>
+     <width>131</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>SF Pro Text</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>(% duty) deadzone</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_36">
+   <property name="geometry">
+    <rect>
+     <x>345</x>
+     <y>67</y>
+     <width>151</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>SF Pro Text</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>(psi) setpoint</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="doubleSpinBox__accum__setpoint">
+   <property name="geometry">
+    <rect>
+     <x>279</x>
+     <y>61</y>
+     <width>60</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>60</width>
+     <height>27</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>50</width>
+     <height>16777215</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <family>SF Pro Text</family>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="decimals">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <double>1000.000000000000000</double>
+   </property>
+   <property name="singleStep">
+    <double>1.000000000000000</double>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="doubleSpinBox__accum__differential_gap">
+   <property name="geometry">
+    <rect>
+     <x>279</x>
+     <y>95</y>
+     <width>60</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>60</width>
+     <height>27</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>50</width>
+     <height>16777215</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <family>SF Pro Text</family>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="decimals">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <double>1000.000000000000000</double>
+   </property>
+   <property name="singleStep">
+    <double>1.000000000000000</double>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_37">
+   <property name="geometry">
+    <rect>
+     <x>345</x>
+     <y>101</y>
+     <width>151</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>SF Pro Text</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>(psi ±) differential gap</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_38">
+   <property name="geometry">
+    <rect>
+     <x>279</x>
+     <y>28</y>
+     <width>191</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>SF Pro Text</family>
+     <pointsize>11</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Accumulator Parameters</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>269</x>
+     <y>20</y>
+     <width>222</width>
+     <height>112</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>SF Pro Text</family>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(216, 216, 216);
+border-radius: 10px;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <zorder>label_3</zorder>
   <zorder>label_2</zorder>
   <zorder>doubleSpinBox__freq__display</zorder>
   <zorder>label_29</zorder>
@@ -1258,21 +1598,21 @@ border-radius: 10px;</string>
   <zorder>label_30</zorder>
   <zorder>label</zorder>
   <zorder>label_24</zorder>
-  <zorder>doubleSpinBox__control__noise_threshold</zorder>
+  <zorder>doubleSpinBox__chamber__noise_threshold</zorder>
   <zorder>label_25</zorder>
   <zorder>label_26</zorder>
-  <zorder>doubleSpinBox__control__windup_limit</zorder>
-  <zorder>doubleSpinBox__control__differential_gap</zorder>
-  <zorder>doubleSpinBox__control__inflation__kd</zorder>
+  <zorder>doubleSpinBox__chamber__windup_limit</zorder>
+  <zorder>doubleSpinBox__chamber__differential_gap</zorder>
+  <zorder>doubleSpinBox__chamber__inflate__kd</zorder>
   <zorder>label_18</zorder>
-  <zorder>doubleSpinBox__control__inflation__kp</zorder>
+  <zorder>doubleSpinBox__chamber__inflate__kp</zorder>
   <zorder>label_16</zorder>
-  <zorder>doubleSpinBox__control__inflation__ki</zorder>
+  <zorder>doubleSpinBox__chamber__inflate__ki</zorder>
   <zorder>label_17</zorder>
-  <zorder>doubleSpinBox__control__deflation__kd</zorder>
+  <zorder>doubleSpinBox__chamber__deflate__kd</zorder>
   <zorder>label_21</zorder>
-  <zorder>doubleSpinBox__control__deflation__ki</zorder>
-  <zorder>doubleSpinBox__control__deflation__kp</zorder>
+  <zorder>doubleSpinBox__chamber__deflate__ki</zorder>
+  <zorder>doubleSpinBox__chamber__deflate__kp</zorder>
   <zorder>label_22</zorder>
   <zorder>label_23</zorder>
   <zorder>label_20</zorder>
@@ -1281,6 +1621,13 @@ border-radius: 10px;</string>
   <zorder>label_19</zorder>
   <zorder>label_28</zorder>
   <zorder>pushButton_update</zorder>
+  <zorder>doubleSpinBox__chamber__deadzone</zorder>
+  <zorder>label_34</zorder>
+  <zorder>label_36</zorder>
+  <zorder>doubleSpinBox__accum__setpoint</zorder>
+  <zorder>doubleSpinBox__accum__differential_gap</zorder>
+  <zorder>label_37</zorder>
+  <zorder>label_38</zorder>
  </widget>
  <resources/>
  <connections/>
