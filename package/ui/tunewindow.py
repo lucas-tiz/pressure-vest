@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'designer/tunewindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.5.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -741,7 +741,7 @@ class Ui_Form(object):
         self.label_21.setText(_translate("Form", "Kp"))
         self.label_22.setText(_translate("Form", "Ki"))
         self.label_23.setText(_translate("Form", "Kd"))
-        self.label_24.setText(_translate("Form", "(psi) windup limit"))
+        self.label_24.setText(_translate("Form", "(% duty) windup limit"))
         self.label_25.setText(_translate("Form", "(psi ±) differential gap"))
         self.label_26.setText(_translate("Form", "(psi) noise threshold"))
         self.label_29.setText(_translate("Form", "(Hz) display"))

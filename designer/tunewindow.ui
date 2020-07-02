@@ -688,7 +688,7 @@ border-radius: 10px;</string>
     </font>
    </property>
    <property name="text">
-    <string>(psi) windup limit</string>
+    <string>(% duty) windup limit</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
