@@ -1565,6 +1565,8 @@ border-color: rgb(196, 193, 189);</string>
       <property name="styleSheet">
        <string notr="true">selection-background-color: rgb(216, 83, 25);
 selection-background-color: rgb(250, 231, 81, 255);
+selection-background-color: rgb(220, 52, 50, 255);
+
 </string>
       </property>
       <property name="maximum">

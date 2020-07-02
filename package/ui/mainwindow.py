@@ -680,6 +680,8 @@ class Ui_MainWindow(object):
         self.horizontalSlider_pul.setSizePolicy(sizePolicy)
         self.horizontalSlider_pul.setStyleSheet("selection-background-color: rgb(216, 83, 25);\n"
 "selection-background-color: rgb(250, 231, 81, 255);\n"
+"selection-background-color: rgb(220, 52, 50, 255);\n"
+"\n"
 "")
         self.horizontalSlider_pul.setMaximum(100)
         self.horizontalSlider_pul.setSingleStep(0)
