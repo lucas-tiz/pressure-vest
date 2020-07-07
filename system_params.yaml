@@ -1,14 +1,14 @@
 freq:
   sense: 10.0
   display: 10.0
-  control: 2.0
+  control: 10.0
   log: 0.1
-  pwm: 30.0
+  pwm: 45.0
 chamber:
-  deadzone: 10
-  noise_threshold: 0.05
+  deadzone: 10.0
+  noise_threshold: 0.1
   differential_gap: 0.1
-  windup_limit: 50
+  windup_limit: 75.0
   inflate:
     kp: 5.0
     ki: 1.5
@@ -18,6 +18,6 @@ chamber:
     ki: 0.0
     kd: 0.0
 accum:
-  setpoint: 5.0
-  differential_gap: 0.3
-  pwm: 50
+  setpoint: 4.5
+  differential_gap: 0.1
+  pwm: 49.0
