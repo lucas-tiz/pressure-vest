@@ -21,7 +21,7 @@ class Adc:
 		# set up & connect to SPI device
 		self.spi = spidev.SpiDev()
 		self.spi.open(self.bus, self.device) # bus, device		
-		self.spi.max_speed_hz=20000000  #20 MHz SPI clock speed
+		self.spi.max_speed_hz=10000000  #20 MHz SPI clock speed
 		self.spi.cshigh=False
 		self.spi.mode = 0b00 # clock polarity & clock phase
 
