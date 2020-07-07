@@ -197,16 +197,18 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 			
 		counts = data[-1][1]
 		self.pressure_accum = (counts*(5.0/4095.0) - 0.10*Vs)*(5.0/(0.8*Vs))  # update accumulator pressure
-		print('accum pres', self.pressure_accum) #DEBUG
+		# print('accum pres', self.pressure_accum) #DEBUG
 		# ~ print('setpoint', self.system_params['accum']['setpoint'])
 		# ~ print('set-gap', self.system_params['accum']['setpoint'] 
 				# ~ - self.system_params['accum']['differential_gap'])
 
 
-
 	def sensorDisplayUpdate(self,t):
 		for chamber in self.chambers.values(): # update chamber pressures
 			chamber['obj'].updateMeasurementDisplay()
+
+		if self.tune:
+			self.tune_window.label_accum_pres.setText(str(round(self.pressure_accum,1)))
 
 
 	def controlUpdate(self, t=None, vent=False):
@@ -234,7 +236,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 				# ~ print('pump on')
 				# ~ self.GPIO.output(self.pin_pump1, self.GPIO.HIGH) # turn on pump 1
 				# ~ self.GPIO.output(self.pin_pump2, self.GPIO.HIGH) # turn on pump 2
-				self.pump1_pwm.ChangeDutyCycle(10)
+				self.pump1_pwm.ChangeDutyCycle(self.system_params['accum']['pwm'])
 
 			else: 
 				# ~ print('pump off')

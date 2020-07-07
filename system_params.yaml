@@ -20,3 +20,4 @@ chamber:
 accum:
   setpoint: 5.0
   differential_gap: 0.3
+  pwm: 50
