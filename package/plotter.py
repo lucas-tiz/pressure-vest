@@ -31,8 +31,11 @@ class PlotWindow(QWidget, plotwindow.Ui_Form):
 			(0, 114, 189),
 			(216, 83, 25),
 			(236, 177, 32),
-			(119, 172, 48)
-		)
+			(119, 172, 48),
+			(0, 0, 0),
+			(0, 0, 0),
+			(0, 0, 0),
+			(0, 0, 0))
 
 		self.lines = dict()
 		buffer = [0]*self.buffer_len
