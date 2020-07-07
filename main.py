@@ -2,8 +2,6 @@
 
 ''' TODO 
 - fix save path
-- add pump PWM frequency to tune GUI
-- add accum pressure to tune GUI?
 - add emergency stop GPIO
 - add emergency stop status to GUI
 - improve plotter speed?
