@@ -162,7 +162,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		self.pushButton_on.setText('Run')
 		self.statusBar.showMessage('Stopped.', 2000)
 		# print(self.data[0:10,:]) #DEBUG
-		# ~ self.saveLog() #TODO
+		self.saveLog() #TODO
 		
 
 	def initLog(self):
@@ -261,7 +261,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		header = ', '.join(header)
 
 		# ~ dirname = os.path.expanduser('~/Desktop/data')
-		dirname = 'home/pi/Desktop/data'
+		dirname = '/home/pi/Desktop/data'
 		if not os.path.isdir(dirname):
 			os.mkdir(dirname)
 		filename = self.datetime_start.strftime("%Y-%m-%d_%H-%M-%S")

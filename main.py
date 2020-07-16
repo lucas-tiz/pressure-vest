@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 ''' TODO 
-- fix save path
 - add emergency stop GPIO
 - add emergency stop status to GUI
 - improve plotter speed?

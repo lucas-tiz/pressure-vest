@@ -1,7 +1,7 @@
 freq:
-  sense: 10.0
+  sense: 15.0
   display: 10.0
-  control: 10.0
+  control: 15.0
   log: 0.1
   pwm: 45.0
 chamber:
@@ -10,14 +10,14 @@ chamber:
   differential_gap: 0.1
   windup_limit: 75.0
   inflate:
-    kp: 5.0
-    ki: 1.5
+    kp: 200.0
+    ki: 5.0
     kd: 0.0
   deflate:
-    kp: 5.0
-    ki: 0.0
+    kp: 100.0
+    ki: 1.0
     kd: 0.0
 accum:
-  setpoint: 4.5
+  setpoint: 3.0
   differential_gap: 0.1
-  pwm: 49.0
+  pwm: 10.0
