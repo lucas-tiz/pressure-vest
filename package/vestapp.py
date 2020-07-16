@@ -26,6 +26,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 		# system attributes
 		self.run_on = False
+		self.accum_setpoint_chamber = True # if true, accumulator setpoint is based on max chamber setpoint
 		self.t_app_start = time.time()
 
 		# timing attributes
@@ -212,39 +213,26 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 
 
 	def controlUpdate(self, t=None, vent=False):
-		''' Calculate chamber control inputs & update PWM board, turn on/off pumps '''
-		t0 = time.time()
-		
-		dutys = [0]*self.n_chambers*2
-		for chamber in self.chambers.values(): # calculate duty cycles
-			duty = chamber['obj'].calcControl(self.system_params['chamber']) # calculate chamber control
+		''' Calculate chamber control inputs & update PWM board, turn on/off pumps '''		
+		dutys = [0]*self.n_chambers*2 # initialize chamber duty cycles (2 per chamber)
+		max_chamber_pres = 0.0 # (psi) initialize maximum chamber pressure setpoint
+		for chamber in self.chambers.values():
+			duty = chamber['obj'].calcControl(self.system_params['chamber']) # calculate chamber duty
 			dutys[chamber['pwm']['inflate']] = duty['inflate']*(not vent)*self.run_on # 0 if vent
 			dutys[chamber['pwm']['deflate']] = duty['deflate']*(not vent)*self.run_on # 0 if vent	
-		
-		# ~ print('duty', dutys[0], dutys[8]) #DEBUG
-		# print(t, dutys) #DEBUG
+			max_chamber_pres = max(chamber['obj'].pres_set, max_chamber_pres) # update max chamber pressure
 				
-		
 		if not self.debug_gui:
 			for idx, duty in enumerate(dutys):
 				self.pwm.set_pwm(idx, duty) # update duty cycles on PWM board
-				# ~ print(type(idx), type(duty))
-				continue
-
-			if (self.pressure_accum < (self.system_params['accum']['setpoint'] 
+				
+			accum_setpoint = ((max_chamber_pres + 0.5)*self.accum_setpoint_chamber #TODO: make 0.5 a control param
+				+ self.system_params['accum']['setpoint']*(not self.accum_setpoint_chamber))
+			if (self.pressure_accum < (accum_setpoint
 				- self.system_params['accum']['differential_gap'])) and (not vent) and self.run_on:
-				# ~ print('pump on')
-				# ~ self.GPIO.output(self.pin_pump1, self.GPIO.HIGH) # turn on pump 1
-				# ~ self.GPIO.output(self.pin_pump2, self.GPIO.HIGH) # turn on pump 2
 				self.pump1_pwm.ChangeDutyCycle(self.system_params['accum']['pwm'])
-
 			else: 
-				# ~ print('pump off')
-				# ~ self.GPIO.output(self.pin_pump1, self.GPIO.LOW) # turn off pump 1
-				# ~ self.GPIO.output(self.pin_pump2, self.GPIO.LOW) # turn off pump 2
 				self.pump1_pwm.ChangeDutyCycle(0)
-		# ~ print('control dt:', time.time()-t0)
-
 
 
 	def systemDisplayUpdate(self,t):
