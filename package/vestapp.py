@@ -261,7 +261,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 		header = ', '.join(header)
 
 		# ~ dirname = os.path.expanduser('~/Desktop/data')
-		dirname = '/home/pi/Desktop/data'
+		dirname = '/home/pi/Documents/pressure-vest-data'
 		if not os.path.isdir(dirname):
 			os.mkdir(dirname)
 		filename = self.datetime_start.strftime("%Y-%m-%d_%H-%M-%S")
