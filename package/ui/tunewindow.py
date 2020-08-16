@@ -325,6 +325,7 @@ class Ui_Form(object):
         self.doubleSpinBox__chamber__noise_threshold.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.doubleSpinBox__chamber__noise_threshold.setAlignment(QtCore.Qt.AlignCenter)
         self.doubleSpinBox__chamber__noise_threshold.setDecimals(2)
+        self.doubleSpinBox__chamber__noise_threshold.setMinimum(-1.0)
         self.doubleSpinBox__chamber__noise_threshold.setMaximum(1000.0)
         self.doubleSpinBox__chamber__noise_threshold.setSingleStep(0.1)
         self.doubleSpinBox__chamber__noise_threshold.setObjectName("doubleSpinBox__chamber__noise_threshold")
