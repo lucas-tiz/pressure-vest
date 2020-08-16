@@ -115,6 +115,7 @@ class PressureChamber:
 			u = int(u*(4095/100)) # scale to 12-bit
 			self.duty[mode] = max(0, min(u, 4095)) # impose saturation limits
 
+		print(self.pres_set, self.duty)
 		return self.duty
 
 
