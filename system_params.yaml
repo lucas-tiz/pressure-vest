@@ -6,7 +6,7 @@ freq:
   pwm: 45.0
 chamber:
   deadzone: 10.0
-  noise_threshold: 0.1
+  noise_threshold: -0.5
   differential_gap: 0.1
   windup_limit: 75.0
   inflate:
@@ -18,6 +18,6 @@ chamber:
     ki: 1.0
     kd: 0.0
 accum:
-  setpoint: 3.0
+  setpoint: 1.0
   differential_gap: 0.1
   pwm: 10.0
