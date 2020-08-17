@@ -226,7 +226,7 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 			for idx, duty in enumerate(dutys):
 				self.pwm.set_pwm(idx, duty) # update duty cycles on PWM board
 				
-			accum_setpoint = ((max_chamber_pres + 0.5)*self.accum_setpoint_chamber #TODO: make 0.5 a control param
+			accum_setpoint = ((max_chamber_pres + self.system_params['accum']['setpoint'])*self.accum_setpoint_chamber #TODO: make 0.5 a control param
 				+ self.system_params['accum']['setpoint']*(not self.accum_setpoint_chamber))
 			if (self.pressure_accum < (accum_setpoint
 				- self.system_params['accum']['differential_gap'])) and (not vent) and self.run_on:
