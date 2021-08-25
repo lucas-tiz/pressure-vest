@@ -23,7 +23,7 @@ class PressureChamber:
 		# chamber attributes
 		self.enabled = True
 		self.pres_meas = 0 # initialize pressure measurement
-		self.pres_set = 0 # initialize pressure setpoint
+		self.pres_set = self.spinbox.value() # initialize pressure setpoint
 		self.err_int = 0 # initialize integral error
 		self.err_prev = 0 # initialize previous error
 		self.duty = {'inflate':0, 'deflate':0} #DEBUG
@@ -76,18 +76,18 @@ class PressureChamber:
 				self.duty['deflate'] = 0 # fully open deflate valve
 			else: # if within sensor noise range
 				self.duty['inflate'] = 0 # fully close inflate valve
-				self.duty['deflate'] = 100 # fully close deflate valve
+				self.duty['deflate'] = 4095 # fully close deflate valve
 			self.err_int = 0 # reset integral
 
-		elif (abs(err) <= param['differential_gap']): # if nonzero setpoint, but within differential gap
+		elif ((err >= 0) and (err < param['differential_gap'])): # if nonzero setpoint, but within differential gap
 			self.duty['inflate'] = 0 # fully close inflate valve
-			self.duty['deflate'] = 100 # fully close deflate valve
-			self.err_int = 0 # reset integral
+			self.duty['deflate'] = 4095 # fully close deflate valve
+			# ~ self.err_int = 0 # reset integral
 
 		else: # if nonzero setpoint, out of differential gap
 			if err < 0: # if below setpoint
 				mode = 'inflate'
-				self.duty['deflate'] = 100 # close deflate valve
+				self.duty['deflate'] = 4095 # close deflate valve
 			else: # if above setpoint
 				mode = 'deflate'
 				self.duty['inflate'] = 0 # close inflate valve
@@ -112,7 +112,7 @@ class PressureChamber:
 				u = param['deadzone'] + u 
 			else: # (mode is deflate)
 				u = (100 - param['deadzone']) + u
-			u = u*(4095/100) # scale to 12-bit
+			u = int(u*(4095/100)) # scale to 12-bit
 			self.duty[mode] = max(0, min(u, 4095)) # impose saturation limits
 
 		return self.duty

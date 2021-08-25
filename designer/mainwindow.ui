@@ -1178,7 +1178,7 @@ border-color: rgb(196, 193, 189);</string>
     <property name="geometry">
      <rect>
       <x>128</x>
-      <y>531</y>
+      <y>529</y>
       <width>41</width>
       <height>20</height>
      </rect>
@@ -1565,6 +1565,8 @@ border-color: rgb(196, 193, 189);</string>
       <property name="styleSheet">
        <string notr="true">selection-background-color: rgb(216, 83, 25);
 selection-background-color: rgb(250, 231, 81, 255);
+selection-background-color: rgb(220, 52, 50, 255);
+
 </string>
       </property>
       <property name="maximum">
@@ -2074,6 +2076,7 @@ border-color: rgb(196, 193, 189);</string>
 background-color: rgb(231, 179, 156, 150);
 background-color: rgba(221, 117, 72, 140);
 background-color: rgb(250, 231, 81, 150);
+background-color: rgb(220, 52, 50, 125);
 border-radius: 10px;</string>
     </property>
     <property name="text">
@@ -2779,7 +2782,7 @@ border-radius: 10px;</string>
      <x>0</x>
      <y>0</y>
      <width>1032</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'designer/mainwindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.5.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -530,7 +530,7 @@ class Ui_MainWindow(object):
         self.label_t_run.setAlignment(QtCore.Qt.AlignCenter)
         self.label_t_run.setObjectName("label_t_run")
         self.label_21 = QtWidgets.QLabel(self.centralWidget)
-        self.label_21.setGeometry(QtCore.QRect(128, 531, 41, 20))
+        self.label_21.setGeometry(QtCore.QRect(128, 529, 41, 20))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -680,6 +680,8 @@ class Ui_MainWindow(object):
         self.horizontalSlider_pul.setSizePolicy(sizePolicy)
         self.horizontalSlider_pul.setStyleSheet("selection-background-color: rgb(216, 83, 25);\n"
 "selection-background-color: rgb(250, 231, 81, 255);\n"
+"selection-background-color: rgb(220, 52, 50, 255);\n"
+"\n"
 "")
         self.horizontalSlider_pul.setMaximum(100)
         self.horizontalSlider_pul.setSingleStep(0)
@@ -901,6 +903,7 @@ class Ui_MainWindow(object):
 "background-color: rgb(231, 179, 156, 150);\n"
 "background-color: rgba(221, 117, 72, 140);\n"
 "background-color: rgb(250, 231, 81, 150);\n"
+"background-color: rgb(220, 52, 50, 125);\n"
 "border-radius: 10px;")
         self.label_color_pul.setText("")
         self.label_color_pul.setObjectName("label_color_pul")
@@ -1231,7 +1234,7 @@ class Ui_MainWindow(object):
         self.groupBox_plr.raise_()
         MainWindow.setCentralWidget(self.centralWidget)
         self.menuBar = QtWidgets.QMenuBar(MainWindow)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 1032, 21))
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 1032, 25))
         self.menuBar.setObjectName("menuBar")
         MainWindow.setMenuBar(self.menuBar)
         self.mainToolBar = QtWidgets.QToolBar(MainWindow)
