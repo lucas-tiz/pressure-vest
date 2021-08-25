@@ -53,17 +53,10 @@ class VestController(QMainWindow, mainwindow.Ui_MainWindow):
 			
 			import RPi.GPIO as GPIO			
 			self.GPIO = GPIO
-			self.GPIO.setmode(self.GPIO.BCM)
-			self.pin_pump1 = 6
-			self.pin_pump2 = 5
-			self.GPIO.setup(self.pin_pump1, self.GPIO.OUT)
-			self.GPIO.setup(self.pin_pump2, self.GPIO.OUT)
-			self.GPIO.output(self.pin_pump1, self.GPIO.LOW)
-			self.GPIO.output(self.pin_pump2, self.GPIO.LOW)
-			
+			GPIO.setmode(GPIO.BCM)			
 			GPIO.setup(12, GPIO.OUT)
-			self.pump1_pwm = GPIO.PWM(12, 15000)
-			self.pump1_pwm.start(0)
+			self.pump1_pwm = GPIO.PWM(12, 15000) # (15k Hz)
+			self.pump1_pwm.start(0) # start PWM with zero duty cycle
 
 			from package.pca9685_driver import Device # PWM driver class
 			self.pwm = Device(0x40) # instantiate PCA9685
